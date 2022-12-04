@@ -1,4 +1,6 @@
 import pygame
+from SETTINGS import MAIN_MENU_FONT
+
 def draw_text(surface,text,x,y,font,color=(255, 255, 255)):
     surface.blit(font.render(f'{text}', True, color), (x, y))
 
@@ -26,31 +28,52 @@ class Button:
         draw_text(self.screen, text, x, y,self.font)
 
 class Node:
-    def __init__(self,size,color,color_hover,screen,font):
+    def __init__(self,screen,size,color,color_hover,x,y,color_used=(255,0,0)):
+        self.x = x
+        self.y = y
         self.screen = screen
         self.size = size
         self.color = color
         self.color_hover = color_hover
-        self.font = font
         self.isUsed = False
+        self.color_used = color_used
 
-    def draw(self,x,y,text,command=None):
+    def draw(self,text,command=None):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
-        if x < mouse[0] < x + self.size and y < mouse[1] < y + self.size:
+        if self.isUsed:
+            pygame.draw.circle(self.screen, self.color_used, (self.x + self.size // 2, self.y + self.size // 2), self.size // 2 + 10)
+        if self.x < mouse[0] < self.x + self.size and self.y < mouse[1] < self.y + self.size and not self.isUsed:
 
-            if click[0]==1 and command is not None and not self.isUsed:
+            if click[0]==1 and command is not None :
                 self.isUsed = True
                 command()
                 #pygame.time.delay(100)
 
-            pygame.draw.circle(self.screen, self.color_hover,(x+self.size//2, y+self.size//2), self.size//2+5)
-
-        else:
-            ...
+            pygame.draw.circle(self.screen, self.color_hover,(self.x+self.size//2, self.y+self.size//2), self.size//2+5)
 
         pygame.draw.circle(self.screen, self.color,
-                           (x+self.size//2, y+self.size//2),
+                           (self.x+self.size//2, self.y+self.size//2),
                            self.size//2)
-        draw_text(self.screen, text, x, y,self.font)
+        draw_text(self.screen, text, self.x, self.y,MAIN_MENU_FONT)
+
+class Edge:
+    def __init__(self,screen,NodeIN :Node ,NodeOUT :Node ,size,color,color_used=(255,0,0)):
+        self.screen = screen
+        self.size = size
+        self.color = color
+        self.NodeIN = NodeIN
+        self.NodeOUT = NodeOUT
+        self.color_used = color_used
+
+    def draw(self):
+       used = self.NodeIN.isUsed & self.NodeOUT.isUsed
+       pygame.draw.line(self.screen,
+                        self.color_used if used else self.color,
+                        [self.NodeIN.x + self.NodeIN.size // 2, self.NodeIN.y + self.NodeIN.size // 2],
+                        [self.NodeOUT.x + self.NodeOUT.size // 2, self.NodeOUT.y + self.NodeOUT.size // 2],
+                        self.size
+                        )
+
+
 

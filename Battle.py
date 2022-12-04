@@ -16,6 +16,6 @@ class BattleScene(Scene):
         self.screen.blit(self.bg, (0, 0))
 
 
-        self.btn4.draw(877, 925, "Exit", lambda: self.change("None"))
+        self.btn4.draw(877, 925, "Back", lambda: self.change("Map"))
         pygame.display.flip()
 

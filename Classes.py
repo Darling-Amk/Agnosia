@@ -7,7 +7,7 @@ class Scene:
         self.change = change
         self.name = name
         self.screen = screen
-    def draw(self):
+    def draw(self,state):
         pass
 
     @staticmethod

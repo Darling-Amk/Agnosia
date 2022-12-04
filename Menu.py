@@ -21,6 +21,5 @@ class MainMenuScene(Scene):
         self.btn2.draw(808, 667, "Tutorial", lambda: self.change("None"))
         self.btn3.draw(808, 796, "Option", lambda: self.change("Options"))
         self.btn4.draw(877, 925, "Exit", lambda: self.change("None"))
-        print("Menu draw!")
         pygame.display.flip()
 
