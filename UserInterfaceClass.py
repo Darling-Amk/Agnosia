@@ -11,20 +11,19 @@ class UserInterface:
         self.CreateOptions()
         self.CreateMap()
 
-    def change(self,scene):
+    def changeScene(self,scene):
         self.current_scene = scene
 
     def draw(self,state={}):
         if self.current_scene:
-            print(self.current_scene)
-            self.scenes[self.current_scene].draw()
+            self.scenes[self.current_scene].draw(state)
         return bool(self.current_scene)
 
     def CreateMainMenu(self):
-        self.scenes['Menu'] = MainMenuScene(screen=self.screen ,name="Menu",bg_image="Agnosia_assets/Agnosia_background_main_menu.png",change = self.change)
+        self.scenes['Menu'] = MainMenuScene(screen=self.screen ,name="Menu",bg_image="Agnosia_assets/Agnosia_background_main_menu.png",change = self.changeScene)
 
     def CreateOptions(self):
-        self.scenes['Options'] = OptionsScene(screen=self.screen ,name="Options",bg_image="Agnosia_assets/Agnosia_background_main_menu.png",change = self.change)
+        self.scenes['Options'] = OptionsScene(screen=self.screen ,name="Options",bg_image="Agnosia_assets/Agnosia_background_main_menu.png",change = self.changeScene)
 
     def CreateMap(self):
-        self.scenes['Map'] = MapScene(screen=self.screen ,name="Map",bg_image="Agnosia_assets/Agnosia_background_map.png",change = self.change)
+        self.scenes['Map'] = MapScene(screen=self.screen ,name="Map",bg_image="Agnosia_assets/Agnosia_background_map.png",change = self.changeScene)

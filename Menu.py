@@ -13,7 +13,7 @@ class MainMenuScene(Scene):
         self.btn3 = Button(230, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
         self.btn4 = Button(145, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
 
-    def draw(self):
+    def draw(self,state):
         self.screen.fill((255, 0, 0))
         self.screen.blit(self.bg, (0, 0))
         Scene.draw_text(self.screen, "Agnosia", 630, 247, MAIN_MENU_FONT_LOGO, color=(0, 0, 0))

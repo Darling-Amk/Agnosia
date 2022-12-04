@@ -9,7 +9,7 @@ class MapScene(Scene):
         super().__init__(screen,name,change,bg_image)
         self.btn = Button(200, 42, (0, 255, 0), (0, 0, 0), screen,font =MAIN_MENU_FONT )
 
-    def draw(self):
+    def draw(self,state):
         self.screen.fill((255, 0, 0))
         self.screen.blit(self.bg, (0, 0))
         # For drawing
