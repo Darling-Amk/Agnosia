@@ -1,29 +1,19 @@
 import pygame
 from SETTINGS import MAIN_MENU_FONT,MAIN_MENU_FONT_LOGO
-from components import Button,draw_text
+from components import Button
 
-bg = pygame.image.load("Agnosia_assets/Agnosia_background_main_menu.png")
+from Classes import  Scene
 
 
-def OptionsScene(screen,current_scene,clock,all_scenes):
-    def change(s):
-        current_scene[0] = s
-    # for variables
-    btn = Button(190, 80, None, (0, 0, 0), screen, font=MAIN_MENU_FONT)
-    while current_scene[0]==OptionsScene:
-        for e in pygame.event.get():
-            if e.type == pygame.QUIT:
-                current_scene[0] = None
-                return
-            if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
-                current_scene[0] = None
-                return
+class OptionsScene(Scene):
+    def __init__(self,screen,name,change,bg_image):
+        super().__init__(screen,name,change,bg_image)
+        self.btn = Button(190, 80, None, (0, 0, 0), screen, font=MAIN_MENU_FONT)
 
-        screen.fill((255,155,0))
-        screen.blit(bg, (0, 0))
-        #For drawing
-        draw_text(screen, "Agnosia", 630, 247, MAIN_MENU_FONT_LOGO, color=(0, 0, 0))
-
-        btn.draw(877, 925, "Back", lambda: change(all_scenes["Menu"]))
+    def draw(self):
+        self.screen.fill((255, 0, 0))
+        self.screen.blit(self.bg, (0, 0))
+        # For drawing
+        Scene.draw_text(self.screen, "Agnosia", 630, 247, MAIN_MENU_FONT_LOGO, color=(0, 0, 0))
+        self.btn.draw(877, 925, "Back", lambda: self.change("Menu"))
         pygame.display.flip()
-        clock.tick(30)

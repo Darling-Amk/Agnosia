@@ -1,6 +1,4 @@
 import pygame
-
-
 def draw_text(surface,text,x,y,font,color=(255, 255, 255)):
     surface.blit(font.render(f'{text}', True, color), (x, y))
 
@@ -12,8 +10,8 @@ class Button:
         self.active_color = c2
         self.inactive_color = c1
         self.font = font
-    def draw(self,x,y,text,command=None):
 
+    def draw(self,x,y,text,command=None):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
         if x < mouse[0] < x + self.width and y < mouse[1] < y + self.height:

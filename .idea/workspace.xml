@@ -3,8 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="268b9148-4928-428d-9380-2df669508ba5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map.py" beforeDir="false" afterPath="$PROJECT_DIR$/Map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Options.py" beforeDir="false" afterPath="$PROJECT_DIR$/Options.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pattern scene.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UserInterfaceClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/UserInterfaceClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components.py" beforeDir="false" afterPath="$PROJECT_DIR$/components.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Сlasses.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -8,7 +8,7 @@ UI = UserInterface(screen)
 play = True
 while play:
     play = UI.draw()
-    clock.tick(10)
+    clock.tick(30)
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             play = False
