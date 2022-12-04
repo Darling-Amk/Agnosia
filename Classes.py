@@ -1,4 +1,5 @@
-from abc import ABC, abstractmethod
+from enum import Enum
+
 import pygame
 
 class Scene:
@@ -15,16 +16,73 @@ class Scene:
         surface.blit(font.render(f'{text}', True, color), (x, y))
 
 
-
-
-class Card(ABC):
+class Card():
     def __init__(self):
-        super().__init__()
+        self._price = None
+        self.upgraded = False
+        self.canBeUpgraded = False
 
-    @abstractmethod
-    def getPrice(self):
+    def getPrice(self) -> int:
+        return self._price
+
+    def canBeUpgraded(self) -> bool:
+        return False
+
+class Effect(Enum):
+    weakness  = 1
+    blind  = 2
+    fire  = 3
+    disarm  = 4
+    power = 5
+
+class Creature():
+    def __init__(self):
+        self.effects = set()
+        self.health  = None
+        self.canBeUpgraded = False
+
+    def makeDamage(self,damage:int)->bool:
+        self.health-=damage
+        return self.health<=0
+
+    def makeEffect(self,effect:Effect)->None:
+        self.effects.add(effect)
+
+
+class Player(Creature):
+    def __init__(self):
+        # Конструктор родителя
+        super(Player, self).__init__()
+        self.artifacts = []
+        self.cards = []
+
+class phase (Enum):
+    beforeFight   = 1
+    beforeTurn   = 2
+    afterTurn   = 3
+    afterDamage   = 4
+
+class Artifact():
+    def __init__(self,phase_type:phase):
+        self._phase_type : phase = phase_type
+
+    def  getType(self)-> phase:
+        return self._phase_type
+
+    def use(self)->None:
         pass
 
-    @abstractmethod
-    def canBeUpgraded(self):
+class Event():
+    def __init__(self):
+        # Я хуй знает что он хотел этим сказать но надо переделать
+        self.ui = None
+    def launch(self, player:Player)->bool:
         pass
+    
+class Monster(Creature,Event):
+    def __init__(self):
+        super(Monster, self).__init__()
+
+    def turn(self)->None:
+        pass
+        
