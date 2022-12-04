@@ -7,6 +7,9 @@ from Classes import  Scene
 class MapScene(Scene):
     def __init__(self,screen,name,change,bg_image):
         super().__init__(screen,name,change,bg_image)
+
+        # генератор графа
+
         self.btn = Button(200, 42, (0, 255, 0), (0, 0, 0), screen,font =MAIN_MENU_FONT )
         self.node1 = Node(size=30,color=(0, 128, 128), color_hover=(128, 0, 0),screen=screen,x=150,y=150)
         self.node2 = Node(size=30, color=(0, 128, 128), color_hover=(128, 0, 0), screen=screen,x=250,y=150)
