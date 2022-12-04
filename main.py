@@ -7,7 +7,9 @@ clock = pygame.time.Clock()
 UI = UserInterface(screen)
 play = True
 while play:
-    play = UI.draw()
+    scene = UI.draw()
+    if scene=="None":
+        play = False
     clock.tick(30)
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
