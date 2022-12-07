@@ -1,6 +1,7 @@
 from enum import Enum
-
+from random import shuffle
 import pygame
+
 
 class Scene:
     def __init__(self,screen,name,change,bg_image="Agnosia_assets/Agnosia_background_main_menu.png"):
@@ -16,8 +17,9 @@ class Scene:
         surface.blit(font.render(f'{text}', True, color), (x, y))
 
 
-class Card():
+class Card(pygame.sprite.Sprite):
     def __init__(self):
+        super(pygame.sprite.Sprite, self).__init__()
         self._price = None
         self.upgraded = False
         self._canBeUpgraded = False
@@ -42,6 +44,7 @@ class Effect(Enum):
     disarm  = 4
     power = 5
 
+
 class Creature():
     def __init__(self):
         self.effects = set()
@@ -60,14 +63,27 @@ class Player(Creature):
         # Конструктор родителя
         super(Player, self).__init__()
         self.artifacts = []
-        self.cards = []
+        self.deck = []
+        self.hand = []
+        self.draw = []
         self.energy = 3
 
-class phase (Enum):
-    beforeFight   = 1
-    beforeTurn   = 2
-    afterTurn   = 3
-    afterDamage   = 4
+    def endTurn(self):
+        self.energy = 3
+        self.hand.clear()
+        if len(self.draw) == 0:
+            self.draw = self.deck
+            shuffle(self.draw)
+        for i in range(4):
+            self.hand.append(self.draw.pop())
+
+
+class phase(Enum):
+    beforeFight = 1
+    beforeTurn = 2
+    afterTurn = 3
+    afterDamage = 4
+
 
 class Artifact():
     def __init__(self,phase_type:phase):
@@ -79,13 +95,15 @@ class Artifact():
     def use(self)->None:
         pass
 
+
 class Event():
     def __init__(self):
         # Я хуй знает что он хотел этим сказать но надо переделать
         self.ui = None
     def launch(self, player:Player)->bool:
         pass
-    
+
+
 class Monster(Creature,Event):
     def __init__(self):
         super(Monster, self).__init__()

@@ -1,14 +1,22 @@
+import random
+
 import pygame
 import sys
-from random import randint
+from random import shuffle
 from Classes import Card
+from Classes import Player
 
 
 class Attack(Card):
     def __init__(self):
+        super(Attack, self).__init__()
+        pygame.sprite.Sprite.__init__(self)
         self._price = 1
         self.upgraded = False
         self._canBeUpgraded = True
+        self.image = pygame.image.load("Agnosia_assets/front.png").convert_alpha()
+        self.rect = self.image.get_rect(
+            center=(random.randint(0, 2000), 900))
 
     def getPrice(self) -> int:
         return self._price
@@ -68,7 +76,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, filename):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(
-            "Agnosia_assets/Agnosia_map_boss.png").convert_alpha()
+            "Agnosia_assets/Agnosia_map_boss2.png").convert_alpha()
         self.rect = self.image.get_rect(
             center=(1400, 500))
 
@@ -77,44 +85,56 @@ class Enemy(pygame.sprite.Sprite):
 
 
 sc = pygame.display.set_mode((W, H))
-# координата x будет случайна
 car1 = Car(0, 'car1.png')
-drag=0
-energy=3
+x = Attack()
+player = Player()
+for a in range(4):
+    player.deck.append(x)
+    x = Attack()
+player.endTurn()
+drag = 0
 monsterHP = 10
 pygame.init()
 font = pygame.font.Font("fonts/GrechenFuemen-Regular.ttf", 80)
-img = font.render(str(energy)+'/3', True, (0,0,255))
-img2 = font.render(str(monsterHP)+'/10', True, (255,0,0))
-enm = Enemy(0,'aboab')
+img = font.render(str(player.energy)+'/3', True, (0, 0, 255))
+img2 = font.render(str(monsterHP)+'/10', True, (255, 0, 0))
+enm = Enemy(0, 'aboab')
+dragged = pygame.sprite.Group()
+items = pygame.sprite.Group()
+print(x)
 while 1:
+    for a in player.hand:
+        items.add(a)
     for i in pygame.event.get():
         if i.type == pygame.QUIT:
             sys.exit()
         elif i.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
-            if car1.rect.collidepoint(pos):
-                drag = 1-drag
-                if drag == 0 and car1.rect.colliderect(enm.rect):
-                    energy-=1
-                    monsterHP-=5
-                    img = font.render(str(energy) + '/3', True, (0, 0, 255))
+            if len(dragged) == 0:
+                pass
+                dragged.add(x for x in items if x.rect.collidepoint(i.pos))
+            else:
+                dragged.empty()
+            for b in items:
+                if len(dragged) == 0 and b.rect.colliderect(enm.rect):
+                    player.energy -= 1
+                    monsterHP -= 5
+                    player.hand.remove(b)
+                    img = font.render(str(player.energy) + '/3', True, (0, 0, 255))
                     img2 = font.render(str(monsterHP) + '/10', True, (255, 0, 0))
         elif i.type == pygame.MOUSEMOTION:
-            if drag:
-                car1.update(i.rel)
+            if len(dragged) > 0:
+                for a in dragged:
+                    a.rect.move_ip(i.rel)
 
     sc.fill(WHITE)
-    sc.blit(car1.image, car1.rect)
+    for a in items:
+        sc.blit(a.image, a.rect)
     sc.blit(enm.image, enm.rect)
     sc.blit(img, (1500, 20))
     sc.blit(img2, (1500, 100))
+    items.empty()
     pygame.display.update()
     pygame.time.delay(5)
 
-    # машинка ездит сверху вниз
-    #if car1.rect.y < H:
-        #car1.rect.y += 2
-    #else:
-        #car1.rect.y = 0
 
