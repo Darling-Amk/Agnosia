@@ -20,13 +20,20 @@ class Card():
     def __init__(self):
         self._price = None
         self.upgraded = False
-        self.canBeUpgraded = False
+        self._canBeUpgraded = False
 
     def getPrice(self) -> int:
         return self._price
 
     def canBeUpgraded(self) -> bool:
-        return False
+        return self._canBeUpgraded
+
+    def upgrade(self, player):
+        pass
+
+    def play(self, player, creature):
+        pass
+
 
 class Effect(Enum):
     weakness  = 1
@@ -39,7 +46,6 @@ class Creature():
     def __init__(self):
         self.effects = set()
         self.health  = None
-        self.canBeUpgraded = False
 
     def makeDamage(self,damage:int)->bool:
         self.health-=damage
@@ -55,6 +61,7 @@ class Player(Creature):
         super(Player, self).__init__()
         self.artifacts = []
         self.cards = []
+        self.energy = 3
 
 class phase (Enum):
     beforeFight   = 1
