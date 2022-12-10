@@ -27,6 +27,37 @@ class Button:
                 pygame.draw.rect( self.screen,self.color,(x,y,self.width,self.height))
         draw_text(self.screen, text, x, y,self.font)
 
+class ButtonImage:
+    def __init__(self,screen,w,h,image,image_hover=None):
+        self.img_hover = image if image_hover == None else image_hover
+        self.img_hover = pygame.image.load(self.img_hover)
+
+        self.img = pygame.image.load(image)
+        self.img.set_colorkey((255, 255, 255))
+        self.img = pygame.transform.scale(self.img, (w, h))
+
+        self.img_hover.set_colorkey((255, 255, 255))
+        self.img_hover = pygame.transform.scale(self.img_hover, (w, h))
+        self.screen = screen
+        self.width = w
+        self.height = h
+
+
+
+    def draw(self,x,y,command=None):
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
+
+        if x < mouse[0] < x + self.width and y < mouse[1] < y + self.height:
+            if click[0]==1 and command is not None:
+                command()
+                pygame.time.delay(100)
+            self.screen.blit(self.img_hover, (x, y))
+        else:
+            self.screen.blit(self.img,(x,y))
+
+
 class Node:
     def __init__(self,screen,size,color,color_hover,x,y,color_used=(255,0,0)):
         self.x = x

@@ -6,6 +6,7 @@ from  Battle import BattleScene
 
 class UserInterface:
     def __init__(self,screen):
+        self.restart = set()
         self.screen = screen
         self.scenes = {}
         self.current_scene = "Menu"
@@ -15,12 +16,31 @@ class UserInterface:
         self.CreateBattle()
 
     def changeScene(self,scene):
+        if scene[0:2]=="Re":
+            scene = scene.replace('Re',"")
+
+            for u in self.restart:
+                u()
+            self.CreateScene(scene)
+
         self.current_scene = scene
 
-    def draw(self,state={}):
+    def draw(self,state=None):
         if self.current_scene!="None":
             self.scenes[self.current_scene].draw(state)
         return self.current_scene
+
+
+
+    def CreateScene(self,name):
+        if name=="Menu":
+            self.CreateMainMenu()
+        if name=="Map":
+            self.CreateMap()
+        if name=="Options":
+            self.CreateBattle()
+        if name=="Menu":
+            self.CreateOptions()
 
     def CreateMainMenu(self):
         self.scenes['Menu'] = MainMenuScene(screen=self.screen ,name="Menu",

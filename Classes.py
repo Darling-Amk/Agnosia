@@ -68,6 +68,14 @@ class Player(Creature):
         self.draw = []
         self.energy = 3
 
+    def restart(self):
+        self.artifacts = []
+        self.deck = []
+        self.hand = []
+        self.draw = []
+        self.energy = 3
+        print("hio")
+
     def endTurn(self):
         self.energy = 3
         self.hand.clear()
