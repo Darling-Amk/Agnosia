@@ -12,6 +12,9 @@ while play:
         if e.type == pygame.QUIT:
             play = False
     scene = UI.draw()
+
+    if scene == "battle":
+        pass
     if scene=="None":
         play = False
     clock.tick(30)
