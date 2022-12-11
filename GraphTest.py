@@ -1,3 +1,4 @@
+import random
 Len = 4
 Size = 5
 
@@ -14,43 +15,57 @@ def delVertex(G,d):
         for v in G[u]:
             if v==d or u==d:
                 continue
-            G_[v].add(u)
+            G_[u].add(v)
 
     return G_
 
 
-def CreateGraph():
+def generateGraph():
     G = {
         "In":set(),
         "Out":set()
     }
     for i in range(1,1+Len*Size):
         G[i] = set()
+    toDel = set()
+    lstmsk = 1
+    lstnum = 1
+    for i in range(1, Len + 1):
+        was = [0] * 10
+        num = random.randrange(1, Size)        
+        for vertex in range(num + 1, Size + 1):            
+            toDel.add((i - 1) * Size + vertex)        
 
+        if(i == 1):              
+            for edge in range(1, num + 1):                
+                G["In"].add((i - 1) * Size + edge)
+            lstmsk = (1 << num) - 1
+            lstnum = num
+            continue
 
-    for i in range(Len+1):
-        for j in range(1,Size+1):
-            if i == 0:
-                G["In"].add(i*Len+j)
-                continue
-            elif i == Len:
-                G[(i-1) * Size + j].add("Out")
-                continue
-            else:
-                for k in range(1, Size + 1):
-                    G[(i-1)*Size+j].add(i*Size+k)
+        for j in range(1, lstnum + 1):                        
+            msk = random.randrange(1, (1 << num))
+            print((i - 2) * Size + j, " ", msk)
+            for edge in range(0, num):
+                if((msk & (1 << edge)) != 0):                    
+                    G[(i - 2) * Size + j].add((i - 1) * Size + edge + 1)
+                    was[edge + 1] = 1
+        for j in range(1, num + 1):
+            if(was[j] == 0):
+                v = random.randrange(1, lstnum + 1)
+                G[(i - 2) * Size + v].add((i - 1) * Size + j)        
+        lstnum = num
 
-    G = delVertex(G, 10)
-    G = delVertex(G, 9)
-    G = delVertex(G, 8)
+    for j in range(1, lstnum + 1):        
+        G[(Len - 1) * Size + j].add("Out")                
+        
+    for i in toDel:
+        G = delVertex(G, i)
 
-    G = delVertex(G, 18)
-    G = delVertex(G, 19)
-    G = delVertex(G, 20)
-
+    print(G)
     return G
 
 
 if __name__=='__main__':
-    g = CreateGraph()
+    g = generateGraph()
     print(g)
