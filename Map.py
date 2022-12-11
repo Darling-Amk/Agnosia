@@ -59,7 +59,7 @@ class MapScene(Scene):
         if count==1:
             return 6*HEIGHT//12
         if count==2:
-            return 6 * HEIGHT // 12 + (HEIGHT // 12) * (-1 if v%2==1 else 1)
+            return 6 * HEIGHT // 12 + (HEIGHT // 12) * (-1 if v%2==0 else 1)
         if count == 3:
             if v % 3==2:
                 return 6 * HEIGHT // 12

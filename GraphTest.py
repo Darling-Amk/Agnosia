@@ -24,9 +24,6 @@ def CreateGraph():
         "In":set(),
         "Out":set()
     }
-
-
-
     for i in range(1,1+Len*Size):
         G[i] = set()
 
@@ -43,14 +40,14 @@ def CreateGraph():
                 for k in range(1, Size + 1):
                     G[(i-1)*Size+j].add(i*Size+k)
 
-
-    G = delVertex(G,10)
+    G = delVertex(G, 10)
     G = delVertex(G, 9)
     G = delVertex(G, 8)
 
     G = delVertex(G, 18)
     G = delVertex(G, 19)
     G = delVertex(G, 20)
+
     return G
 
 
