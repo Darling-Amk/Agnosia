@@ -1,6 +1,7 @@
 from enum import Enum
 from random import shuffle
 import pygame
+import Cards
 
 
 class Scene:
@@ -16,27 +17,6 @@ class Scene:
     def draw_text(surface, text, x, y, font, color=(255, 255, 255)):
         surface.blit(font.render(f'{text}', True, color), (x, y))
 
-
-class Card(pygame.sprite.Sprite):
-    def __init__(self):
-        super(pygame.sprite.Sprite, self).__init__()
-        self._price = None
-        self.upgraded = False
-        self._canBeUpgraded = False
-
-    def getPrice(self) -> int:
-        return self._price
-
-    def canBeUpgraded(self) -> bool:
-        return self._canBeUpgraded
-
-    def upgrade(self, player):
-        pass
-
-    def play(self, player, creature):
-        pass
-
-
 class Effect(Enum):
     weakness  = 1
     blind  = 2
@@ -45,10 +25,11 @@ class Effect(Enum):
     power = 5
 
 
-class Creature():
+class Creature(pygame.sprite.Sprite):
     def __init__(self):
+        super(pygame.sprite.Sprite, self).__init__()
         self.effects = set()
-        self.health  = None
+        self.health = None
 
     def makeDamage(self,damage:int)->bool:
         self.health-=damage
@@ -62,11 +43,20 @@ class Player(Creature):
     def __init__(self):
         # Конструктор родителя
         super(Player, self).__init__()
+        self.health = 100
         self.artifacts = []
         self.deck = []
         self.hand = []
         self.draw = []
         self.energy = 3
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_gg.png").convert_alpha(), (205, 300))
+        self.rect = self.image.get_rect(
+            center=(300, 500))
+        x = Cards.Attack()
+        for a in range(4):
+            self.deck.append(x)
+            x = Cards.Attack()
+        self.endTurn()
 
     def restart(self):
         self.artifacts = []
@@ -74,16 +64,21 @@ class Player(Creature):
         self.hand = []
         self.draw = []
         self.energy = 3
-        print("hio")
+        print("restarted player")
 
     def endTurn(self):
+        start = 500
         self.energy = 3
         self.hand.clear()
-        if len(self.draw) == 0:
-            self.draw = self.deck
-            shuffle(self.draw)
+        print(len(self.draw))
         for i in range(4):
+            if len(self.draw) == 0:
+                self.draw = self.deck.copy()
+                shuffle(self.draw)
             self.hand.append(self.draw.pop())
+        for a in self.hand:  # 1920 - длина области, ширина будет 200
+            a.rect = a.image.get_rect(center=(start, 900))
+            start += 200
 
 
 class phase(Enum):
@@ -112,7 +107,7 @@ class Event():
         pass
 
 
-class Monster(Creature,Event):
+class Monster(Creature, Event):
     def __init__(self):
         super(Monster, self).__init__()
 
