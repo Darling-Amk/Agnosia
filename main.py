@@ -8,7 +8,7 @@ player = Player()
 player.artifacts = ["hui","pizda"]
 
 UI = UserInterface(screen)
-#UI.restart.add(player.restart) 
+#UI.restart.add(player.restart)
 play = True
 
 player.health = 15
