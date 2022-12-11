@@ -2,6 +2,7 @@ import pygame
 from components import Button,Node,Edge,ButtonImage,draw_text
 from SETTINGS import MAIN_MENU_FONT,WIDTH,HEIGHT,MAP_FONT
 from GraphTest import generateGraph
+from GraphTest import generateEvents
 from Classes import  Scene
 
 # Когда добавят арты удалить
@@ -23,6 +24,7 @@ class MapScene(Scene):
 
     def createGraph(self):
         self.Graph = generateGraph()
+        self.events = generateEvents(self.Graph)
         self.nodes = {}
         self.edges = {}
 

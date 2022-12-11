@@ -1,4 +1,8 @@
 import random
+from Classes import Monster
+from Classes import Treasure
+from Classes import Camp
+from Classes import RandomEvent
 Len = 4
 Size = 5
 
@@ -57,7 +61,7 @@ def generateGraph():
         lstnum = num
 
     for j in range(1, lstnum + 1):        
-        G[(Len - 1) * Size + j].add("Out")                
+        G[(Len - 1) * Size + j].add("Out")  
         
     for i in toDel:
         G = delVertex(G, i)
@@ -65,6 +69,23 @@ def generateGraph():
     print(G)
     return G
 
+def generateEvents(G):
+    events = {}
+    events["In"] = Monster()
+    events["Out"] = Monster()
+    for i in G:
+        if(i == "In" or i == "Out"): continue
+        print(i, " ", (i - 1) / Size)
+        if(((i - 1) // Size) % 2 != 0): events[i] = Monster()
+        else:
+            rnd = random.randrange(0, 3)
+            if(rnd == 0):
+                events[i] = Camp()
+            elif(rnd == 1):
+                events[i] = Treasure()
+            else: events[i] = RandomEvent()
+    print(events)
+    return events
 
 if __name__=='__main__':
     g = generateGraph()
