@@ -110,6 +110,7 @@ class Event():
 class Monster(Creature, Event):
     def __init__(self):
         super(Monster, self).__init__()
+        pygame.sprite.Sprite.__init__(self)
 
     def turn(self)->None:
         pass
