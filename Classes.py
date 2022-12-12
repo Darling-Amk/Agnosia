@@ -131,7 +131,13 @@ class Camp(Event):
 
 class Goblin(Monster):
     def __init__(self):
-        pass
+        # Конструктор родителя
+        super(Goblin, self).__init__()
+        self.health = 40
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster4.png").convert_alpha(),
+                                            (205, 300))
+        self.rect = self.image.get_rect(
+            center=(300, 500))
 
     def turn(self) -> None:
         pass
