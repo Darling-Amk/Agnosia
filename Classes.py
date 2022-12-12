@@ -144,7 +144,7 @@ class Goblin(Monster):
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster4.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
-            center=(300, 500))
+            center=(1620, 500))
 
 
     def turn(self) -> None:
@@ -161,7 +161,7 @@ class Vampire(Monster):
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster1.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
-            center=(300, 500))
+            center=(1620, 500))
 
 
     def turn(self) -> None:
@@ -178,7 +178,7 @@ class Phoenix(Monster):
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster2.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
-            center=(300, 500))
+            center=(1620, 500))
 
     def turn(self) -> None:
       #  Player.makeDamage(50)
@@ -194,7 +194,7 @@ class Dragon(Monster):
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster3.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
-            center=(300, 500))
+            center=(1620, 500))
 
     def turn(self) -> None:
        # Player.makeDamage(25)

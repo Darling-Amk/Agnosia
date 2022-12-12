@@ -49,6 +49,8 @@ class Attack(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             monster.makeDamage(5)
+            return True
+        return False
 
 
 class AttackUpgraded(Card):
@@ -70,6 +72,8 @@ class AttackUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             monster.makeDamage(8)
+            return True
+        return False
 
 
 

@@ -17,7 +17,8 @@ class BattleScene(Scene):
         self.btn4 = Button(145, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
         self.btn5 = Button(360, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
 
-    def draw(self, player):
+
+    def draw(self, player, mobs):
         self.screen.fill((255, 0, 0))
         self.screen.blit(self.bg, (0, 0))
 
@@ -34,7 +35,10 @@ class BattleScene(Scene):
         draw_text(self.screen,f"Health : {player.health}",WIDTH//24,HEIGHT-HEIGHT//12,MAP_FONT,color=(255,255,255))
         draw_text(self.screen, f"Energy : {player.energy}", WIDTH-9*WIDTH // 12, HEIGHT - HEIGHT // 12, MAP_FONT,
                   color=(255, 255, 255))
+        draw_text(self.screen, f"Enemy Health : {mobs.health}", WIDTH - 6 * WIDTH // 12, 0, MAP_FONT,
+                  color=(255, 255, 255))
         self.screen.blit(player.image, player.rect)
+        self.screen.blit(mobs.image, mobs.rect)
         for a in player.hand:
             self.screen.blit(a.image, a.rect)
 

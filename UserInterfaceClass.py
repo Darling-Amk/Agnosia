@@ -15,18 +15,21 @@ class UserInterface:
         self.CreateMap()
         self.CreateBattle()
 
-    def changeScene(self,scene):
+    def changeScene(self,scene, monster = None):
         if scene[0:2]=="Re":
             scene = scene.replace('Re',"")
 
             for u in self.restart:
                 u()
             self.CreateScene(scene)
-
+        if scene=="Battle":
+            self.mobs = monster
         self.current_scene = scene
 
-    def draw(self,state=None):
-        if self.current_scene!="None":
+    def draw(self,state=None, mobs = None):
+        if self.current_scene=="Battle":
+            self.scenes[self.current_scene].draw(state, self.mobs)
+        elif self.current_scene!="None":
             self.scenes[self.current_scene].draw(state)
         return self.current_scene
 
