@@ -113,4 +113,16 @@ class Monster(Creature, Event):
 
     def turn(self)->None:
         pass
+
+class Treasure(Event):
+    def __init__(self):
+        pass
+
+class RandomEvent(Event):
+    def __init__(self):
+        pass
+
+class Camp(Event):
+    def __init__(self):
+        pass
         
