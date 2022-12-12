@@ -1,5 +1,6 @@
 from enum import Enum
 from random import shuffle
+import random
 import pygame
 import Cards
 
@@ -92,7 +93,7 @@ class Artifact():
     def __init__(self,phase_type:phase):
         self._phase_type : phase = phase_type
 
-    def  getType(self)-> phase:
+    def getType(self)-> phase:
         return self._phase_type
 
     def use(self)->None:
@@ -129,6 +130,11 @@ class Camp(Event):
     def __init__(self):
         pass
 
+def chooseMonster():
+    arr = [Goblin(),]
+    rnd = random.randrange(0, len(arr))
+    return arr[rnd]
+
 class Goblin(Monster):
     def __init__(self):
         # Конструктор родителя
@@ -140,4 +146,4 @@ class Goblin(Monster):
             center=(300, 500))
 
     def turn(self) -> None:
-        pass
+        

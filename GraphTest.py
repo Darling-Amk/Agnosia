@@ -3,6 +3,7 @@ from Classes import Monster
 from Classes import Treasure
 from Classes import Camp
 from Classes import RandomEvent
+from Classes import chooseMonster
 Len = 4
 Size = 5
 
@@ -71,20 +72,20 @@ def generateGraph():
 
 def generateEvents(G):
     events = {}
-    events["In"] = Monster()
-    events["Out"] = Monster()
+    events["In"] = chooseMonster()
+    events["Out"] = chooseMonster()
     for i in G:
         if(i == "In" or i == "Out"): continue
         print(i, " ", (i - 1) / Size)
-        if(((i - 1) // Size) % 2 != 0): events[i] = Monster()
+        if(((i - 1) // Size) % 2 != 0): events[i] = chooseMonster()
         else:
             rnd = random.randrange(0, 3)
             if(rnd == 0):
                 events[i] = Camp()
             elif(rnd == 1):
                 events[i] = Treasure()
-            else: events[i] = RandomEvent()
-    print(events)
+            else: events[i] = RandomEvent() 
+   # print(events)   
     return events
 
 if __name__=='__main__':
