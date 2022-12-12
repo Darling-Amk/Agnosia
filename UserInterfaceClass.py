@@ -5,7 +5,8 @@ from  Battle import BattleScene
 
 
 class UserInterface:
-    def __init__(self,screen):
+    def __init__(self,screen, player):
+        self.player = player
         self.restart = set()
         self.screen = screen
         self.scenes = {}
@@ -55,7 +56,7 @@ class UserInterface:
 
     def CreateMap(self):
         self.scenes['Map'] = MapScene(screen=self.screen ,name="Map",
-                                      bg_image="Agnosia_assets/Agnosia_background_map.png",change = self.changeScene)
+                                      bg_image="Agnosia_assets/Agnosia_background_map.png",change = self.changeScene, player=self.player)
 
     def CreateBattle(self):
         self.scenes['Battle'] = BattleScene(screen=self.screen, name="Battle",

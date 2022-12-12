@@ -6,7 +6,8 @@ from Classes import  Scene
 
 class BattleScene(Scene):
     def __init__(self,screen,name,change,bg_image):
-        super().__init__(screen,name,change,bg_image)
+
+        super().__init__(screen,name,change,bg_image)        
         Art = pygame.image.load("Agnosia_assets/tmp_art.png")
         Art.set_colorkey((255, 255, 255))
         self.art = pygame.transform.scale(Art, (HEIGHT // 12, HEIGHT // 12))
@@ -29,7 +30,7 @@ class BattleScene(Scene):
         self.btn4.draw(877, HEIGHT - HEIGHT // 12, "Back", lambda: self.change("Map"))
         # draw gear image button
         self.btnImg.draw(WIDTH-HEIGHT//12,0,lambda: self.change("Options"))
-        self.btn5.draw(WIDTH-3*WIDTH // 12, HEIGHT-HEIGHT//12, "End Turn", lambda: player.endTurn())
+        self.btn5.draw(WIDTH-3*WIDTH // 12, HEIGHT-HEIGHT//12, "End Turn", lambda: player.endTurn(mobs))
 
         #   draw characteristics
         draw_text(self.screen,f"Health : {player.health}",WIDTH//24,HEIGHT-HEIGHT//12,MAP_FONT,color=(255,255,255))

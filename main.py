@@ -12,9 +12,9 @@ player.artifacts = ["hui","pizda"]
 dragged = pygame.sprite.Group()
 monsterHP = 10
 items = pygame.sprite.Group()
-mobs = Goblin()
+mobs = Goblin(player)
 
-UI = UserInterface(screen)
+UI = UserInterface(screen, player)
 #UI.restart.add(player.restart)
 play = True
 
@@ -26,6 +26,9 @@ while play:
         if e.type == pygame.QUIT:
             play = False
         if scene == "Battle":
+            if player.makeDamage(0):
+                player.restart()
+                UI.changeScene("Menu")
             for a in player.hand:
                 items.add(a)
             if e.type == pygame.MOUSEBUTTONDOWN:
@@ -38,8 +41,10 @@ while play:
                 for b in items:
                     if len(dragged) == 0 and b.rect.colliderect(mobs.rect):
                         flag = b.play(player,mobs)
-                        if flag:
+                        if flag == 1:
                             player.hand.remove(b)
+                        elif flag == 2:
+                            UI.changeScene("Map")
             elif e.type == pygame.MOUSEMOTION:
                 if len(dragged) > 0:
                     for a in dragged:

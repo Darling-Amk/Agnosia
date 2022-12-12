@@ -48,9 +48,11 @@ class Attack(Card):
     def play(self, player, monster):
         if player.energy >= self._price:
             player.energy -= self._price
-            monster.makeDamage(5)
-            return True
-        return False
+            tmp = monster.makeDamage(5)
+            if tmp:
+                return 2
+            return 1
+        return 0
 
 
 class AttackUpgraded(Card):

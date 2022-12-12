@@ -9,9 +9,10 @@ from Classes import  Scene
 
 # Когда добавят арты удалить
 
-class MapScene(Scene):
-    def __init__(self,screen,name,change,bg_image):
+class MapScene(Scene):    
+    def __init__(self,screen,name,change,bg_image, player):        
         super().__init__(screen, name, change, bg_image)
+        self.player = player
         # Когда будут арты удалить
         Art = pygame.image.load("Agnosia_assets/tmp_art.png")
         Art.set_colorkey((255, 255, 255))
@@ -22,11 +23,11 @@ class MapScene(Scene):
                                   image="Agnosia_assets/Agnosia_interface_settings.png",
                                   image_hover="Agnosia_assets/Agnosia_interface_settings_hover.png"
                                   )
-        self.btn = Button(200, 42, (0, 255, 0), (0, 0, 0), screen,font = MAIN_MENU_FONT )
+        self.btn = Button(200, 42, (0, 255, 0), (0, 0, 0), screen,font = MAIN_MENU_FONT )        
 
     def createGraph(self):
         self.Graph = generateGraph()
-        self.events = generateEvents(self.Graph)
+        self.events = generateEvents(self.Graph, self.player)
         self.nodes = {}
         self.edges = {}
 
@@ -105,7 +106,7 @@ class MapScene(Scene):
         for node in self.nodes:
             if type(self.events[node]) is Classes.Dragon or type(self.events[node]) is Classes.Vampire or type(self.events[node]) is Classes.Goblin or type(self.events[node]) is Classes.Phoenix:
                 self.nodes[node].draw(str(node),lambda: self.change("Battle", self.events[node]))
-                player.endTurn()
+                player.endTurn(1)
             else: self.nodes[node].draw(str(node), lambda: print(node))
 
         pygame.display.flip()
