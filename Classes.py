@@ -132,7 +132,7 @@ class Camp(Event):
         pass
 
 def chooseMonster():
-    arr = [Goblin(),]
+    arr = [Goblin(), Vampire(), Phoenix(), Dragon()]
     rnd = random.randrange(0, len(arr))
     return arr[rnd]
 
@@ -148,8 +148,8 @@ class Goblin(Monster):
 
 
     def turn(self) -> None:
-        Player.makeDamage(45)
-        Player.makeEffect(random.randint(1, 5))
+      #  Player.makeDamage(45)
+       # Player.makeEffect(random.randint(1, 5))
         self.health += 5
 
 
@@ -165,8 +165,8 @@ class Vampire(Monster):
 
 
     def turn(self) -> None:
-        Player.makeDamage(10)
-        Player.makeEffect(2)
+     #   Player.makeDamage(10)
+      #  Player.makeEffect(2)
         self.health += 10
 
 
@@ -181,8 +181,8 @@ class Phoenix(Monster):
             center=(300, 500))
 
     def turn(self) -> None:
-        Player.makeDamage(50)
-        Player.makeEffect(5)
+      #  Player.makeDamage(50)
+       # Player.makeEffect(5)
         self.makeEffect(3)
 
 
@@ -197,9 +197,9 @@ class Dragon(Monster):
             center=(300, 500))
 
     def turn(self) -> None:
-        Player.makeDamage(25)
-        Player.makeEffect(2)
-        Player.makeEffect(3)
+       # Player.makeDamage(25)
+        #Player.makeEffect(2)
+        #Player.makeEffect(3)
         a = random.randint(0, 5)
-        if a == 2:
-            Player.makeEffect(1)
+        #if a == 2:
+         #   Player.makeEffect(1)
