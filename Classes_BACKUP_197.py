@@ -148,6 +148,9 @@ class Goblin(Monster):
 
 
     def turn(self) -> None:
+<<<<<<< HEAD
+        
+=======
         Player.makeDamage(45)
         Player.makeEffect(random.randint(1, 5))
         self.health += 5
@@ -203,3 +206,4 @@ class Dragon(Monster):
         a = random.randint(0, 5)
         if a == 2:
             Player.makeEffect(1)
+>>>>>>> 75e27915c06c7afcb116af04f063ad76fba9e227

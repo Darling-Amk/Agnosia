@@ -1,9 +1,7 @@
 from enum import Enum
 from random import shuffle
-import random
 import pygame
 import Cards
-import random
 
 
 class Scene:
@@ -94,7 +92,7 @@ class Artifact():
     def __init__(self,phase_type:phase):
         self._phase_type : phase = phase_type
 
-    def getType(self)-> phase:
+    def  getType(self)-> phase:
         return self._phase_type
 
     def use(self)->None:
@@ -131,75 +129,15 @@ class Camp(Event):
     def __init__(self):
         pass
 
-def chooseMonster():
-    arr = [Goblin(),]
-    rnd = random.randrange(0, len(arr))
-    return arr[rnd]
-
 class Goblin(Monster):
     def __init__(self):
         # Конструктор родителя
         super(Goblin, self).__init__()
-        self.health = 50
+        self.health = 40
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster4.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
             center=(300, 500))
 
-
     def turn(self) -> None:
-        Player.makeDamage(45)
-        Player.makeEffect(random.randint(1, 5))
-        self.health += 5
-
-
-class Vampire(Monster):
-    def __init__(self):
-        # Конструктор родителя
-        super(Vampire, self).__init__()
-        self.health = 20
-        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster1.png").convert_alpha(),
-                                            (205, 300))
-        self.rect = self.image.get_rect(
-            center=(300, 500))
-
-
-    def turn(self) -> None:
-        Player.makeDamage(10)
-        Player.makeEffect(2)
-        self.health += 10
-
-
-class Phoenix(Monster):
-    def __init__(self):
-        # Конструктор родителя
-        super(Phoenix, self).__init__()
-        self.health = 30
-        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster2.png").convert_alpha(),
-                                            (205, 300))
-        self.rect = self.image.get_rect(
-            center=(300, 500))
-
-    def turn(self) -> None:
-        Player.makeDamage(50)
-        Player.makeEffect(5)
-        self.makeEffect(3)
-
-
-class Dragon(Monster):
-    def __init__(self):
-        # Конструктор родителя
-        super(Dragon, self).__init__()
-        self.health = 70
-        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster3.png").convert_alpha(),
-                                            (205, 300))
-        self.rect = self.image.get_rect(
-            center=(300, 500))
-
-    def turn(self) -> None:
-        Player.makeDamage(25)
-        Player.makeEffect(2)
-        Player.makeEffect(3)
-        a = random.randint(0, 5)
-        if a == 2:
-            Player.makeEffect(1)
+        pass
