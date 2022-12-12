@@ -107,6 +107,8 @@ class Event():
         pass
 
 
+
+
 class Monster(Creature, Event):
     def __init__(self):
         super(Monster, self).__init__()
@@ -126,4 +128,10 @@ class RandomEvent(Event):
 class Camp(Event):
     def __init__(self):
         pass
-        
+
+class Goblin(Monster):
+    def __init__(self):
+        pass
+
+    def turn(self) -> None:
+        pass
