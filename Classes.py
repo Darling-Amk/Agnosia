@@ -30,15 +30,15 @@ class Effect(Enum):
 class Creature(pygame.sprite.Sprite):
     def __init__(self):
         super(pygame.sprite.Sprite, self).__init__()
-        self.effects = set()
+        self.effects = {"weakness": 0, "blind": 0, "fire": 0, "disarm": 0, "power": 0}
         self.health = None
 
     def makeDamage(self,damage:int)->bool:
         self.health-=damage
         return self.health<=0
 
-    def makeEffect(self,effect:Effect)->None:
-        self.effects.add(effect)
+    def makeEffect(self,effect:str, length:int)->None:
+        self.effects[effect] += length
 
 
 class Player(Creature):
@@ -76,6 +76,11 @@ class Player(Creature):
         start = 500
         self.energy = 3
         self.hand.clear()
+        if self.effects["fire"]>0: # fire
+            self.makeDamage(5)
+        for eff in self.effects:
+            if self.effects[eff]>0:
+                self.effects[eff]-=1
         #print(len(self.draw))
         for i in range(4):
             if len(self.draw) == 0:
@@ -147,6 +152,7 @@ class Goblin(Monster):
         # Конструктор родителя
         super(Goblin, self).__init__(player)
         self.health = 50
+        self.damage = 45
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster4.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
@@ -155,9 +161,25 @@ class Goblin(Monster):
 
 
     def turn(self) -> None:
-        self.player.makeDamage(45)
-        self.player.makeEffect(random.randint(1, 5))
+        dmg = self.damage
+        if self.effects["weakness"]>0: #weakness
+            dmg = int(dmg*0.75)
+        if self.effects["power"]>0: #power
+            dmg = int(dmg * 1.25)
+        if self.effects["disarm"]>0: #disarm
+            dmg = 0
+        if self.effects["blind"]>0: #blind
+            dmg = int(dmg*0.75)
+        if self.effects["fire"]>0: # fire
+            self.makeDamage(5)
+        self.player.makeDamage(dmg)
+        a = random.randint(0, 5)
+        if a == 2:
+            self.player.makeEffect("disarm", 1)
         self.health += 5
+        for eff in self.effects:
+            if self.effects[eff]>0:
+                self.effects[eff]-=1
 
 
 class Vampire(Monster):
@@ -165,6 +187,7 @@ class Vampire(Monster):
         # Конструктор родителя
         super(Vampire, self).__init__(player)
         self.health = 20
+        self.damage = 10
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster1.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
@@ -172,16 +195,30 @@ class Vampire(Monster):
         self.player = player
 
     def turn(self) -> None:
-        self.player.makeDamage(10)
-        self.player.makeEffect(2)
+        dmg = self.damage
+        if self.effects["weakness"]>0: #weakness
+            dmg = int(dmg*0.75)
+        if self.effects["power"]>0: #power
+            dmg = int(dmg * 1.25)
+        if self.effects["disarm"]>0: #disarm
+            dmg = 0
+        if self.effects["blind"]>0: #blind
+            dmg = int(dmg*0.75)
+        if self.effects["fire"]>0: # fire
+            self.makeDamage(5)
+        self.player.makeDamage(dmg)
+        self.player.makeEffect("blind", 1)
         self.health += 10
-
+        for eff in self.effects:
+            if self.effects[eff]>0:
+                self.effects[eff]-=1
 
 class Phoenix(Monster):
     def __init__(self, player):
         # Конструктор родителя
         super(Phoenix, self).__init__(player)
         self.health = 30
+        self.damage =50
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster2.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
@@ -189,9 +226,23 @@ class Phoenix(Monster):
         self.player = player
 
     def turn(self) -> None:
-        self.player.makeDamage(50)
+        dmg = self.damage
+        if self.effects["weakness"]>0: #weakness
+            dmg = int(dmg*0.75)
+        if self.effects["power"]>0: #power
+            dmg = int(dmg * 1.25)
+        if self.effects["disarm"]>0: #disarm
+            dmg = 0
+        if self.effects["blind"]>0: #blind
+            dmg = int(dmg*0.75)
+        if self.effects["fire"]>0: # fire
+            self.makeDamage(5)
+        self.player.makeDamage(dmg)
         self.player.makeEffect(5)
         self.makeEffect(3)
+        for eff in self.effects:
+            if self.effects[eff]>0:
+                self.effects[eff]-=1
 
 
 class Dragon(Monster):
@@ -199,6 +250,7 @@ class Dragon(Monster):
         # Конструктор родителя
         super(Dragon, self).__init__(player)
         self.health = 70
+        self.damage = 25
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster3.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
@@ -206,9 +258,23 @@ class Dragon(Monster):
         self.player = player
 
     def turn(self) -> None:
-        self.player.makeDamage(25)
-        self.player.makeEffect(2)
-        self.player.makeEffect(3)
+        dmg = self.damage
+        if self.effects["weakness"]>0: #weakness
+            dmg = int(dmg*0.75)
+        if self.effects["power"]>0: #power
+            dmg = int(dmg * 1.25)
+        if self.effects["disarm"]>0: #disarm
+            dmg = 0
+        if self.effects["blind"]>0: #blind
+            dmg = int(dmg*0.75)
+        if self.effects["fire"]>0: # fire
+            self.makeDamage(5)
+        self.player.makeDamage(dmg)
+        self.player.makeEffect("blind", 2)
+        self.player.makeEffect("fire", 1)
         a = random.randint(0, 5)
         if a == 2:
-            self.player.makeEffect(1)
+            self.player.makeEffect("weakness", 1)
+        for eff in self.effects:
+            if self.effects[eff]>0:
+                self.effects[eff]-=1

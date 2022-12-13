@@ -15,8 +15,18 @@ class BattleScene(Scene):
                                   image="Agnosia_assets/Agnosia_interface_settings.png",
                                   image_hover="Agnosia_assets/Agnosia_interface_settings_hover.png"
                                   )
-        self.btn4 = Button(145, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
-        self.btn5 = Button(360, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
+        fire = pygame.image.load("Agnosia_assets/effect_icons/flame.png")
+        self.fireIcon = pygame.transform.scale(fire, (40, 40))
+        blind = pygame.image.load("Agnosia_assets/effect_icons/blind.png")
+        self.blindIcon = pygame.transform.scale(blind, (40, 40))
+        power = pygame.image.load("Agnosia_assets/effect_icons/power.png")
+        self.powerIcon = pygame.transform.scale(power, (40, 40))
+        disarm = pygame.image.load("Agnosia_assets/effect_icons/disarm.png")
+        self.disarmIcon = pygame.transform.scale(disarm, (40, 40))
+        weakness = pygame.image.load("Agnosia_assets/effect_icons/weakness.png")
+        self.weaknessIcon = pygame.transform.scale(weakness, (40, 40))
+        self.backBtn = Button(145, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
+        self.endTurnBtn = Button(360, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
 
 
     def draw(self, player, mobs):
@@ -27,10 +37,10 @@ class BattleScene(Scene):
         rect = pygame.Rect(0, 0, WIDTH, HEIGHT//12)
         pygame.draw.rect(self.screen, (27,27,27), (0, 0, WIDTH, HEIGHT//12))
         pygame.draw.rect(self.screen, (27, 27, 27), (0, HEIGHT-HEIGHT//12, WIDTH, HEIGHT // 12))
-        self.btn4.draw(877, HEIGHT - HEIGHT // 12, "Back", lambda: self.change("Map"))
+        self.backBtn.draw(877, HEIGHT - HEIGHT // 12, "Back", lambda: self.change("Map"))
         # draw gear image button
         self.btnImg.draw(WIDTH-HEIGHT//12,0,lambda: self.change("Options"))
-        self.btn5.draw(WIDTH-3*WIDTH // 12, HEIGHT-HEIGHT//12, "End Turn", lambda: player.endTurn(mobs))
+        self.endTurnBtn.draw(WIDTH-3*WIDTH // 12, HEIGHT-HEIGHT//12, "End Turn", lambda: player.endTurn(mobs))
 
         #   draw characteristics
         draw_text(self.screen,f"Health : {player.health}",WIDTH//24,HEIGHT-HEIGHT//12,MAP_FONT,color=(255,255,255))
@@ -40,6 +50,28 @@ class BattleScene(Scene):
                   color=(255, 255, 255))
         self.screen.blit(player.image, player.rect)
         self.screen.blit(mobs.image, mobs.rect)
+        pygame.draw.rect(self.screen, (27, 27, 27), (1518, 650, 205, 40))
+        pygame.draw.rect(self.screen, (27, 27, 27), (198, 650, 205, 40))
+        if player.effects["blind"]>0:
+            self.screen.blit(self.blindIcon, (198, 650, 40, 40))
+        if player.effects["disarm"]>0:
+            self.screen.blit(self.disarmIcon, (239, 650, 40, 40))
+        if player.effects["fire"]>0:
+            self.screen.blit(self.fireIcon, (280, 650, 40, 40))
+        if player.effects["power"]>0:
+            self.screen.blit(self.powerIcon, (321, 650, 40, 40))
+        if player.effects["weakness"]>0:
+            self.screen.blit(self.weaknessIcon, (362, 650, 40, 40))
+        if mobs.effects["blind"]>0:
+            self.screen.blit(self.blindIcon, (1518, 650, 40, 40))
+        if mobs.effects["disarm"]>0:
+            self.screen.blit(self.disarmIcon, (1559, 650, 40, 40))
+        if mobs.effects["fire"]>0:
+            self.screen.blit(self.fireIcon, (1600, 650, 40, 40))
+        if mobs.effects["power"]>0:
+            self.screen.blit(self.powerIcon, (1641, 650, 40, 40))
+        if mobs.effects["weakness"]>0:
+            self.screen.blit(self.weaknessIcon, (1682, 650, 40, 40))
         for a in player.hand:
             self.screen.blit(a.image, a.rect)
 

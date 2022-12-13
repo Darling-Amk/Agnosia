@@ -28,6 +28,7 @@ class Attack(Card):
         super(Attack, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
+        self.damage = 5
         self.upgraded = False
         self._canBeUpgraded = True
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/front.png").convert_alpha(), (178,200))
@@ -46,9 +47,18 @@ class Attack(Card):
         player.cards.remove(self)
 
     def play(self, player, monster):
+        dmg = self.damage
+        if player.effects["weakness"]>0: #weakness
+            dmg = int(dmg*0.75)
+        if player.effects["power"]>0: #power
+            dmg = int(dmg * 1.25)
+        if player.effects["disarm"]>0: #disarm
+            dmg = 0
+        if player.effects["blind"]>0: #blind
+            dmg = int(dmg*0.75)
         if player.energy >= self._price:
             player.energy -= self._price
-            tmp = monster.makeDamage(5)
+            tmp = monster.makeDamage(dmg)
             if tmp:
                 return 2
             return 1
@@ -60,6 +70,7 @@ class AttackUpgraded(Card):
         self._price = 1
         self.upgraded = True
         self._canBeUpgraded = False
+        self.damage = 8
 
     def getPrice(self) -> int:
         return self._price
@@ -71,11 +82,22 @@ class AttackUpgraded(Card):
         pass
 
     def play(self, player, monster):
+        dmg = self.damage
+        if player.effects["weakness"]>0: #weakness
+            dmg = int(dmg*0.75)
+        if player.effects["power"]>0: #power
+            dmg = int(dmg * 1.25)
+        if player.effects["disarm"]>0: #disarm
+            dmg = 0
+        if player.effects["blind"]>0: #blind
+            dmg = int(dmg*0.75)
         if player.energy >= self._price:
             player.energy -= self._price
-            monster.makeDamage(8)
-            return True
-        return False
+            tmp = monster.makeDamage(dmg)
+            if tmp:
+                return 2
+            return 1
+        return 0
 
 
 
