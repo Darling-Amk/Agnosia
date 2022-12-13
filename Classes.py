@@ -57,7 +57,7 @@ class Player(Creature):
         x = Cards.Attack()
         for a in range(4):
             self.deck.append(x)
-            x = Cards.Attack()            
+            x = Cards.Attack()
 
     def restart(self):
         self.artifacts = []

@@ -31,7 +31,7 @@ class Attack(Card):
         self.damage = 5
         self.upgraded = False
         self._canBeUpgraded = True
-        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/front.png").convert_alpha(), (178,200))
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Strike.png").convert_alpha(), (148,234))
         self.rect = self.image.get_rect(
             center=(500, 900))
 
@@ -67,10 +67,16 @@ class Attack(Card):
 
 class AttackUpgraded(Card):
     def __init__(self):
+        super(AttackUpgraded, self).__init__()
+        pygame.sprite.Sprite.__init__(self)
         self._price = 1
         self.upgraded = True
         self._canBeUpgraded = False
         self.damage = 8
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Strike+.png").convert_alpha(),
+                                            (148, 234))
+        self.rect = self.image.get_rect(
+            center=(500, 900))
 
     def getPrice(self) -> int:
         return self._price

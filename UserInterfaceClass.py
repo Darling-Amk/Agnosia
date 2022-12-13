@@ -60,4 +60,4 @@ class UserInterface:
 
     def CreateBattle(self):
         self.scenes['Battle'] = BattleScene(screen=self.screen, name="Battle",
-                                      bg_image="Agnosia_assets/Agnosia_background_battleground.png", change=self.changeScene)
+                                      bg_image="Agnosia_assets/Agnosia_background_battleground2.png", change=self.changeScene)
