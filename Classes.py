@@ -32,9 +32,17 @@ class Creature(pygame.sprite.Sprite):
         super(pygame.sprite.Sprite, self).__init__()
         self.effects = {"weakness": 0, "blind": 0, "fire": 0, "disarm": 0, "power": 0}
         self.health = None
+        self.block = None
 
     def makeDamage(self,damage:int)->bool:
-        self.health-=damage
+        if self.block > damage:
+            self.block-=damage
+        elif self.block == 0:
+            self.health-=damage
+        else:
+            damage-=self.block
+            self.block = 0
+            self.health -= damage
         return self.health<=0
 
     def makeEffect(self,effect:str, length:int)->None:
@@ -46,6 +54,7 @@ class Player(Creature):
         # Конструктор родителя
         super(Player, self).__init__()
         self.health = 100
+        self.block = 0
         self.artifacts = []
         self.deck = []
         self.hand = []
@@ -65,6 +74,7 @@ class Player(Creature):
         self.hand = []
         self.draw = []
         self.health = 100
+        self.block = 0
         self.energy = 3
         x = Cards.Attack()
         for a in range(4):
@@ -92,6 +102,7 @@ class Player(Creature):
             start += 200
         if(ok != 1):
             ok.turn()
+        self.block = 0
 
 
 class phase(Enum):
@@ -152,6 +163,7 @@ class Goblin(Monster):
         # Конструктор родителя
         super(Goblin, self).__init__(player)
         self.health = 50
+        self.block = 0
         self.damage = 45
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster4.png").convert_alpha(),
                                             (205, 300))
@@ -187,6 +199,7 @@ class Vampire(Monster):
         # Конструктор родителя
         super(Vampire, self).__init__(player)
         self.health = 20
+        self.block = 0
         self.damage = 10
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster1.png").convert_alpha(),
                                             (205, 300))
@@ -218,6 +231,7 @@ class Phoenix(Monster):
         # Конструктор родителя
         super(Phoenix, self).__init__(player)
         self.health = 30
+        self.block = 0
         self.damage =50
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster2.png").convert_alpha(),
                                             (205, 300))
@@ -250,6 +264,7 @@ class Dragon(Monster):
         # Конструктор родителя
         super(Dragon, self).__init__(player)
         self.health = 70
+        self.block = 0
         self.damage = 25
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster3.png").convert_alpha(),
                                             (205, 300))

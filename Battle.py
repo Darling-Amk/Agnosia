@@ -43,10 +43,14 @@ class BattleScene(Scene):
         self.endTurnBtn.draw(WIDTH-3*WIDTH // 12, HEIGHT-HEIGHT//12, "End Turn", lambda: player.endTurn(mobs))
 
         #   draw characteristics
-        draw_text(self.screen,f"Health : {player.health}",WIDTH//24,HEIGHT-HEIGHT//12,MAP_FONT,color=(255,255,255))
-        draw_text(self.screen, f"Energy : {player.energy}", WIDTH-9*WIDTH // 12, HEIGHT - HEIGHT // 12, MAP_FONT,
+        draw_text(self.screen,f"H : {player.health}",WIDTH//48,HEIGHT-HEIGHT//12,MAP_FONT,color=(255,255,255))
+        draw_text(self.screen, f"E : {player.energy}", WIDTH-40*WIDTH // 48, HEIGHT - HEIGHT // 12, MAP_FONT,
                   color=(255, 255, 255))
-        draw_text(self.screen, f"Enemy Health : {mobs.health}", WIDTH - 6 * WIDTH // 12, 0, MAP_FONT,
+        draw_text(self.screen, f"B : {player.block}", WIDTH - 32 * WIDTH // 48, HEIGHT - HEIGHT // 12, MAP_FONT,
+                  color=(255, 255, 255))
+        draw_text(self.screen, f"Enemy H : {mobs.health}", WIDTH - 6 * WIDTH // 12, 0, MAP_FONT,
+                  color=(255, 255, 255))
+        draw_text(self.screen, f"Enemy B : {mobs.block}", WIDTH - 3 * WIDTH // 12, 0, MAP_FONT,
                   color=(255, 255, 255))
         self.screen.blit(player.image, player.rect)
         self.screen.blit(mobs.image, mobs.rect)
