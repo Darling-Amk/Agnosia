@@ -41,9 +41,9 @@ while play:
                 for b in items:
                     if len(dragged) == 0 and b.rect.colliderect(mobs.rect):
                         flag = b.play(player,mobs)
-                        if flag == 1:
-                            player.hand.remove(b)
-                        elif flag == 2:
+                        #if flag == 1:
+                            #player.hand.remove(b)
+                        if flag == 2:
                             UI.changeScene("Map")
             elif e.type == pygame.MOUSEMOTION:
                 if len(dragged) > 0:

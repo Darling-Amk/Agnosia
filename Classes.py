@@ -67,6 +67,12 @@ class Player(Creature):
         for a in range(4):
             self.deck.append(x)
             x = Cards.Attack()
+        x = Cards.Shield()
+        for a in range(4):
+            self.deck.append(x)
+            x = Cards.Shield()
+        x = Cards.UnexpectedMove()
+        self.deck.append(x)
 
     def restart(self):
         self.artifacts = []
@@ -79,11 +85,16 @@ class Player(Creature):
         x = Cards.Attack()
         for a in range(4):
             self.deck.append(x)
-            x = Cards.Attack()            
-       # print("restarted player")
+            x = Cards.Attack()
+        x = Cards.Shield()
+        for a in range(4):
+            self.deck.append(x)
+            x = Cards.Shield()
+        x = Cards.UnexpectedMove()
+        self.deck.append(x)
 
     def endTurn(self, ok):
-        start = 500
+        start = 800
         self.energy = 3
         self.hand.clear()
         if self.effects["fire"]>0: # fire
@@ -95,11 +106,13 @@ class Player(Creature):
         for i in range(4):
             if len(self.draw) == 0:
                 self.draw = self.deck.copy()
+                for j in self.hand:
+                    self.draw.remove(j)
                 shuffle(self.draw)
             self.hand.append(self.draw.pop())
         for a in self.hand:  # 1920 - длина области, ширина будет 200
-            a.rect = a.image.get_rect(center=(start, 900))
-            start += 200
+            a.rect = a.image.get_rect(center=(start, 870))
+            start += 150
         if(ok != 1):
             ok.turn()
         self.block = 0
@@ -252,8 +265,8 @@ class Phoenix(Monster):
         if self.effects["fire"]>0: # fire
             self.makeDamage(5)
         self.player.makeDamage(dmg)
-        self.player.makeEffect(5)
-        self.makeEffect(3)
+        self.player.makeEffect("power", 1)
+        self.makeEffect("fire", 2)
         for eff in self.effects:
             if self.effects[eff]>0:
                 self.effects[eff]-=1
