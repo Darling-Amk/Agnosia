@@ -104,9 +104,14 @@ class MapScene(Scene):
 
         #   draw nodes
         for node in self.nodes:
-            if type(self.events[node]) is Classes.Dragon or type(self.events[node]) is Classes.Vampire or type(self.events[node]) is Classes.Goblin or type(self.events[node]) is Classes.Phoenix:
-                self.nodes[node].draw(str(node),lambda: self.change("Battle", self.events[node]))
+            if type(self.events[node]) is Classes.Dragon or \
+                    type(self.events[node]) is Classes.Vampire or \
+                    type(self.events[node]) is Classes.Goblin or \
+                    type(self.events[node]) is Classes.Phoenix:
+                self.nodes[node].draw(node,self.Graph,self.nodes,lambda: self.change("Battle", self.events[node]))
                 player.endTurn(1)
-            else: self.nodes[node].draw(str(node), lambda: print(node))
+            else:
+                self.nodes[node].draw(node, self.Graph, self.nodes, lambda: print(node))
+                #self.nodes[node].draw(str(node), lambda: print(node))
 
         pygame.display.flip()

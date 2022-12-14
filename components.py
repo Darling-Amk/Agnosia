@@ -69,24 +69,33 @@ class Node:
         self.isUsed = False
         self.color_used = color_used
 
-    def draw(self,text,command=None):
+    def draw(self,name,Graph,nodes,command=None):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
+
+        canGo = name=="In"
+        for u in Graph:
+            if nodes[u].isUsed and name in Graph[u]:
+                canGo = True
+        if name not in ("In","Out"):
+            for u in Graph:
+                if u in (name,"In","Out"):continue
+                if name//5 == u//5 and nodes[u].isUsed:
+                    canGo = False
         if self.isUsed:
             pygame.draw.circle(self.screen, self.color_used, (self.x + self.size // 2, self.y + self.size // 2), self.size // 2 + 10)
-        if self.x < mouse[0] < self.x + self.size and self.y < mouse[1] < self.y + self.size and not self.isUsed:
 
-            if click[0]==1 and command is not None :
+        if self.x < mouse[0] < self.x + self.size and self.y < mouse[1] < self.y + self.size and not self.isUsed:
+            if click[0]==1 and command is not None and canGo:
                 self.isUsed = True
                 command()
-
 
             pygame.draw.circle(self.screen, self.color_hover,(self.x+self.size//2, self.y+self.size//2), self.size//2+5)
 
         pygame.draw.circle(self.screen, self.color,
                            (self.x+self.size//2, self.y+self.size//2),
                            self.size//2)
-        draw_text(self.screen, text, self.x, self.y,MAIN_MENU_FONT)
+        draw_text(self.screen, str(name), self.x, self.y,MAIN_MENU_FONT)
 
 class Edge:
     def __init__(self,screen,NodeIN :Node ,NodeOUT :Node ,size,color,color_used=(255,0,0)):
