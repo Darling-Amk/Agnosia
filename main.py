@@ -1,8 +1,9 @@
 from SETTINGS import *
+screen = pygame.display.set_mode((WIDTH,HEIGHT))
 from UserInterfaceClass import UserInterface
 from Classes import Player, Goblin
 
-screen = pygame.display.set_mode((WIDTH,HEIGHT))
+
 screen.set_colorkey((27,27,27))
 screen.set_alpha(100)
 clock = pygame.time.Clock()

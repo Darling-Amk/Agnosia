@@ -34,17 +34,17 @@ class MapScene(Scene):
         for node in self.Graph:
             if node == "In":
                 self.nodes[node] = Node(size=30, color=(0, 128, 128), color_hover=(128, 0, 0), screen=self.screen,
-                                        x=WIDTH//12, y=6*HEIGHT//12)
+                                        x=WIDTH//12, y=6*HEIGHT//12,type_room=self.events[node])
                 continue
             elif node == "Out":
                 self.nodes[node] = Node(size=30, color=(0, 128, 128), color_hover=(128, 0, 0), screen=self.screen,
-                                        x=WIDTH-WIDTH//12, y=6*HEIGHT//12)
+                                        x=WIDTH-WIDTH//12, y=6*HEIGHT//12,type_room=self.events[node])
                 continue
 
 
             self.nodes[node] = Node(size=30, color=(0, 128, 128), color_hover=(128, 0, 0), screen=self.screen,
                                     x= 3*WIDTH//12+ ((node - 1) // 5)* 2 * WIDTH//12,
-                                    y=self.getYForNode(node))
+                                    y=self.getYForNode(node),type_room=self.events[node])
 
         for u in self.Graph:
             for  v in self.Graph[u]:

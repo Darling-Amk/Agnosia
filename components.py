@@ -1,5 +1,26 @@
 import pygame
 from SETTINGS import MAIN_MENU_FONT
+import Classes
+monsters = [
+    pygame.image.load("Agnosia_assets/Agnosia_map_monster_missed.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_map_monster.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_map_monster_visited.png").convert_alpha(),
+]
+camp = [
+    pygame.image.load("Agnosia_assets/Agnosia_map_campfire_missed.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_map_campfire.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_map_campfire_visited.png").convert_alpha(),
+]
+treasure= [
+    pygame.image.load("Agnosia_assets/Agnosia_map_chest_missed.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_map_chest.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_map_chest_visited.png").convert_alpha(),
+]
+boss = [
+    pygame.image.load("Agnosia_assets/Agnosia_map_boss.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_map_boss.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_map_boss_visited.png").convert_alpha(),
+]
 
 def draw_text(surface,text,x,y,font,color=(255, 255, 255)):
     surface.blit(font.render(f'{text}', True, color), (x, y))
@@ -59,17 +80,27 @@ class ButtonImage:
 
 
 class Node:
-    def __init__(self,screen,size,color,color_hover,x,y,color_used=(255,0,0)):
-        self.x = x
-        self.y = y
+    def __init__(self,screen,size,color,color_hover,x,y,color_used=(255,0,0),type_room=None):
+        print(type_room)
+        self.type_arr = monsters
+        if type(type_room) is Classes.Camp:
+            self.type_arr = camp
+        if type(type_room) is Classes.Treasure:
+            self.type_arr = treasure
+        self.size = size * 5
+        self.x = x-self.size//2
+        self.y = y-self.size//2
         self.screen = screen
-        self.size = size
+
         self.color = color
         self.color_hover = color_hover
         self.isUsed = False
         self.color_used = color_used
+        self.isGray = False
 
     def draw(self,name,Graph,nodes,command=None):
+        if name == ("Out"):
+            self.type_arr = boss
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
@@ -82,20 +113,28 @@ class Node:
                 if u in (name,"In","Out"):continue
                 if name//5 == u//5 and nodes[u].isUsed:
                     canGo = False
+                    self.isGray = True
         if self.isUsed:
-            pygame.draw.circle(self.screen, self.color_used, (self.x + self.size // 2, self.y + self.size // 2), self.size // 2 + 10)
+            self.screen.blit(pygame.transform.scale(self.type_arr[2],(self.size,self.size)),(self.x , self.y ))
+            #pygame.draw.circle(self.screen, self.color_used, (self.x + self.size // 2, self.y + self.size // 2), self.size // 2 + 10)
 
-        if self.x < mouse[0] < self.x + self.size and self.y < mouse[1] < self.y + self.size and not self.isUsed:
-            if click[0]==1 and command is not None and canGo:
+        if self.x < mouse[0] < self.x + self.size and self.y < mouse[1] < self.y + self.size and not self.isUsed and canGo:
+            if click[0]==1 and command is not None :
                 self.isUsed = True
                 command()
 
             pygame.draw.circle(self.screen, self.color_hover,(self.x+self.size//2, self.y+self.size//2), self.size//2+5)
-
-        pygame.draw.circle(self.screen, self.color,
-                           (self.x+self.size//2, self.y+self.size//2),
-                           self.size//2)
-        draw_text(self.screen, str(name), self.x, self.y,MAIN_MENU_FONT)
+        if not self.isGray:
+            self.screen.blit(pygame.transform.scale(self.type_arr[1], (self.size, self.size)), (self.x, self.y))
+            # pygame.draw.circle(self.screen, self.color,
+            #                    (self.x+self.size//2, self.y+self.size//2),
+            #                    self.size//2)
+            #draw_text(self.screen, str(name), self.x, self.y,MAIN_MENU_FONT)
+        else:
+            # pygame.draw.circle(self.screen, (25,25,25),
+            #                    (self.x + self.size // 2, self.y + self.size // 2),
+            #                    self.size // 2)
+            self.screen.blit(pygame.transform.scale(self.type_arr[0], (self.size, self.size)), (self.x, self.y))
 
 class Edge:
     def __init__(self,screen,NodeIN :Node ,NodeOUT :Node ,size,color,color_used=(255,0,0)):
@@ -108,12 +147,23 @@ class Edge:
 
     def draw(self):
        used = self.NodeIN.isUsed & self.NodeOUT.isUsed
-       pygame.draw.line(self.screen,
-                        self.color_used if used else self.color,
-                        [self.NodeIN.x + self.NodeIN.size // 2, self.NodeIN.y + self.NodeIN.size // 2],
-                        [self.NodeOUT.x + self.NodeOUT.size // 2, self.NodeOUT.y + self.NodeOUT.size // 2],
-                        self.size
-                        )
+       gray = self.NodeIN.isGray | self.NodeOUT.isGray
+
+       if gray:
+           pygame.draw.line(self.screen,
+                            (100,100,100),
+                            [self.NodeIN.x + self.NodeIN.size // 2, self.NodeIN.y + self.NodeIN.size // 2],
+                            [self.NodeOUT.x + self.NodeOUT.size // 2, self.NodeOUT.y + self.NodeOUT.size // 2],
+                            self.size
+                            )
+
+       else:
+           pygame.draw.line(self.screen,
+                            self.color_used if used else self.color,
+                            [self.NodeIN.x + self.NodeIN.size // 2, self.NodeIN.y + self.NodeIN.size // 2],
+                            [self.NodeOUT.x + self.NodeOUT.size // 2, self.NodeOUT.y + self.NodeOUT.size // 2],
+                            self.size
+                            )
 
 
 
