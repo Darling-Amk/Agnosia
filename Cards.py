@@ -259,3 +259,154 @@ class UnexpectedMoveUpgraded(Card):
             a.rect = a.image.get_rect(center=(start, 870))
             start += 150
         return 1
+
+class Burning(Card):
+    def __init__(self):
+        super(Burning, self).__init__()
+        pygame.sprite.Sprite.__init__(self)
+        self._price = 1
+        self.upgraded = False
+        self._canBeUpgraded = True
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Burn.png").convert_alpha(), (148,234))
+        self.rect = self.image.get_rect(
+            center=(500, 800))
+
+    def getPrice(self) -> int:
+        return self._price
+
+    def canBeUpgraded(self) -> bool:
+        return self._canBeUpgraded
+
+    def upgrade(self, player):
+        a = BurningUpgraded()
+        player.deck.add(a)
+        player.deck.remove(self)
+
+    def play(self, player, monster):
+        if player.energy >= self._price:
+            player.energy -= self._price
+            player.hand.remove(self)
+            monster.makeEffect("fire", 3)
+            return 1
+        return 0
+
+
+class BurningUpgraded(Card):
+    def __init__(self):
+        super(BurningUpgraded, self).__init__()
+        pygame.sprite.Sprite.__init__(self)
+        self._price = 2
+        self.upgraded = True
+        self._canBeUpgraded = False
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Burn+.png").convert_alpha(),
+                                            (148, 234))
+        self.rect = self.image.get_rect(
+            center=(500, 800))
+
+    def getPrice(self) -> int:
+        return self._price
+
+    def canBeUpgraded(self) -> bool:
+        return self._canBeUpgraded
+
+    def upgrade(self):
+        pass
+
+    def play(self, player, monster):
+        if player.energy >= self._price:
+            player.energy -= self._price
+            player.hand.remove(self)
+            monster.makeEffect("fire", 5)
+
+            return 1
+        return 0
+
+class SharpBlade(Card):
+    def __init__(self):
+        super(Attack, self).__init__()
+        pygame.sprite.Sprite.__init__(self)
+        self._price = 1
+        self.damage = 9
+        self.upgraded = False
+        self._canBeUpgraded = True
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Strike.png").convert_alpha(), (148,234))
+        self.rect = self.image.get_rect(
+            center=(500, 800))
+
+    def getPrice(self) -> int:
+        return self._price
+
+    def canBeUpgraded(self) -> bool:
+        return self._canBeUpgraded
+
+    def upgrade(self, player):
+        a = AttackUpgraded()
+        player.deck.add(a)
+        player.deck.remove(self)
+
+    def play(self, player, monster):
+        dmg = self.damage
+        if player.effects["weakness"]>0: #weakness
+            dmg = int(dmg*0.75)
+        if player.effects["power"]>0: #power
+            dmg = int(dmg * 1.25)
+        if player.effects["disarm"]>0: #disarm
+            dmg = 0
+        if player.effects["blind"]>0: #blind
+            dmg = int(dmg*0.75)
+        if player.energy >= self._price:
+            player.energy -= self._price
+            player.hand.remove(self)
+            tmp = monster.makeDamage(dmg)
+            cmp = player.makeDamage(2)
+            if cmp:
+                return 0
+            if tmp:
+                return 2
+            return 1
+        return 0
+
+
+class SharpBladeUpgraded(Card):
+    def __init__(self):
+        super(SharpBladeUpgraded, self).__init__()
+        pygame.sprite.Sprite.__init__(self)
+        self._price = 1
+        self.upgraded = True
+        self._canBeUpgraded = False
+        self.damage = 12
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Strike+.png").convert_alpha(),
+                                            (148, 234))
+        self.rect = self.image.get_rect(
+            center=(500, 800))
+
+    def getPrice(self) -> int:
+        return self._price
+
+    def canBeUpgraded(self) -> bool:
+        return self._canBeUpgraded
+
+    def upgrade(self):
+        pass
+
+    def play(self, player, monster):
+        dmg = self.damage
+        if player.effects["weakness"]>0: #weakness
+            dmg = int(dmg*0.75)
+        if player.effects["power"]>0: #power
+            dmg = int(dmg * 1.25)
+        if player.effects["disarm"]>0: #disarm
+            dmg = 0
+        if player.effects["blind"]>0: #blind
+            dmg = int(dmg*0.75)
+        if player.energy >= self._price:
+            player.energy -= self._price
+            player.hand.remove(self)
+            tmp = monster.makeDamage(dmg)
+            cmp = player.makeDamage(2)
+            if cmp:
+                return 0
+            if tmp:
+                return 2
+            return 1
+        return 0
