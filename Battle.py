@@ -30,6 +30,8 @@ class BattleScene(Scene):
 
 
     def draw(self, player, mobs):
+        if mobs.health<=0:
+            self.change("Award")
         self.screen.fill((255, 0, 0))
         self.screen.blit(self.bg, (0, 0))
 
