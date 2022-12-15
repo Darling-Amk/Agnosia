@@ -1,9 +1,10 @@
+import Cards
 from Map import  MapScene
 from  Options import OptionsScene
 from  Menu import MainMenuScene
 from  Battle import BattleScene
 from Camp import CampScene, CampUpgradeScene
-from Chest import ChestScene
+from Chest import ChestScene, RewardScene
 
 
 class UserInterface:
@@ -20,6 +21,7 @@ class UserInterface:
         self.CreateChest()
         self.CreateCamp()
         self.CreateCampUpgrade()
+        self.CreateReward()
 
     def changeScene(self,scene, monster = None):
         if scene[0:2]=="Re":
@@ -30,10 +32,12 @@ class UserInterface:
             self.CreateScene(scene)
         if scene=="Battle":
             self.mobs = monster
+        if scene == "Award":
+            self.mobs = Cards.getThreeCards()
         self.current_scene = scene
 
     def draw(self,state=None, mobs = None):
-        if self.current_scene=="Battle":
+        if self.current_scene=="Battle" or self.current_scene=="Award":
             self.scenes[self.current_scene].draw(state, self.mobs)
         elif self.current_scene!="None":
             self.scenes[self.current_scene].draw(state)
@@ -77,3 +81,6 @@ class UserInterface:
     def CreateCampUpgrade(self):
         self.scenes['CampUpgrade'] = CampUpgradeScene(screen=self.screen, name="CampUpgrade",
                                       bg_image="Agnosia_assets/Agnosia_background_camp.png", change=self.changeScene)
+    def CreateReward(self):
+        self.scenes['Award'] = RewardScene(screen=self.screen, name="Award",
+                                      bg_image="Agnosia_assets/Agnosia_background_rewards.png", change=self.changeScene)
