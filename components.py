@@ -7,6 +7,11 @@ monsters = [
     pygame.image.load("Agnosia_assets/Agnosia_map_monster.png").convert_alpha(),
     pygame.image.load("Agnosia_assets/Agnosia_map_monster_visited.png").convert_alpha(),
 ]
+rand = [
+    pygame.image.load("Agnosia_assets/Agnosia_random_event_missed.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_random_event.png").convert_alpha(),
+    pygame.image.load("Agnosia_assets/Agnosia_random_event_visited.png").convert_alpha(),
+]
 camp = [
     pygame.image.load("Agnosia_assets/Agnosia_map_campfire_missed.png").convert_alpha(),
     pygame.image.load("Agnosia_assets/Agnosia_map_campfire.png").convert_alpha(),
@@ -46,7 +51,7 @@ class Button:
             if click[0]==1 and command is not None and f:
                 self.last = time.time()
                 command()
-                # pygame.time.delay(300)
+                pygame.time.delay(300)
 
         else:
             if self.color :
@@ -97,6 +102,8 @@ class Node:
             self.type_arr = camp
         if type(type_room) is Classes.Treasure:
             self.type_arr = treasure
+        if type(type_room) is Classes.RandomEvent:
+            self.type_arr = rand
         self.size = size * 5
         self.x = x-self.size//2
         self.y = y-self.size//2
