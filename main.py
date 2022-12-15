@@ -1,10 +1,12 @@
 from SETTINGS import *
+import random
+from datetime import datetime
 #screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.FULLSCREEN)
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 from UserInterfaceClass import UserInterface
 from Classes import Player, Goblin
 
-
+random.seed(datetime.now())
 screen.set_colorkey((27,27,27))
 screen.set_alpha(100)
 clock = pygame.time.Clock()
