@@ -42,18 +42,14 @@ while play:
                 else:
                     dragged.empty()
                 for b in items:
-                    if len(dragged) == 0 and b.rect.colliderect(mobs.rect) and b.type == "Attack":
+                    if len(dragged) == 0 and b.rect.colliderect(mobs.rect) and (b.type == "Utility" or b.type == "Attack"):
                         flag = b.play(player,mobs)
                         #if flag == 1:
                             #player.hand.remove(b)
                         if flag == 2:
-                            UI.changeScene("Map")
+                            UI.changeScene("Award")
                     if len(dragged) == 0 and b.rect.colliderect(player.rect) and (b.type == "Utility" or b.type == "Defend"):
                         flag = b.play(player,mobs)
-                        #if flag == 1:
-                            #player.hand.remove(b)
-                        if flag == 2:
-                            UI.changeScene("Map")
             elif e.type == pygame.MOUSEMOTION:
                 if len(dragged) > 0:
                     for a in dragged:
@@ -68,6 +64,18 @@ while play:
                     if b.rect.collidepoint(e.pos):
                         b.upgrade(player)
                         UI.changeScene("Map")
+        elif scene == "Award":
+            for a in UI.mobs:
+                items.add(a)
+            if e.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                for b in items:
+                    if b.rect.collidepoint(e.pos):
+                        player.deck.append(b)
+                        UI.changeScene("Map")
+
+
+
 
 
     if scene=="None":
