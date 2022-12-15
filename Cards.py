@@ -209,7 +209,7 @@ class UnexpectedMove(Card):
 
         player.hand.remove(self)
         for a in player.hand:  # 1920 - длина области, ширина будет 200
-            a.rect = a.image.get_rect(center=(start, 870))
+            a.rect = a.image.get_rect(center=(start, 941))
             start += 150
         return 1
 
@@ -262,7 +262,7 @@ class UnexpectedMoveUpgraded(Card):
 
         player.hand.remove(self)
         for a in player.hand:  # 1920 - длина области, ширина будет 200
-            a.rect = a.image.get_rect(center=(start, 870))
+            a.rect = a.image.get_rect(center=(start, 941))
             start += 150
         return 1
 
