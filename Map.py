@@ -6,6 +6,8 @@ from SETTINGS import MAIN_MENU_FONT,WIDTH,HEIGHT,MAP_FONT
 from GraphTest import generateGraph
 from GraphTest import generateEvents
 from Classes import  Scene
+import random
+from Classes import chooseMonster
 
 # Когда добавят арты удалить
 
@@ -115,9 +117,14 @@ class MapScene(Scene):
                 self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Camp"))
             elif type(self.events[node]) is Classes.Treasure:
                 self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Chest"))
-            elif type(self.events[node]) is Classes.RandomEvent:
-                self.nodes[node].draw(node, self.Graph, self.nodes, lambda: print(node))
-            else:
+            elif type(self.events[node]) is Classes.RandomEvent:                
+                rnd = random.randrange(0, 3)
+                if(rnd == 0):
+                    self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Camp"))
+                elif(rnd == 1):
+                    self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Chest"))
+                else: self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Battle", chooseMonster(self.player)))
+            else:                
                 self.nodes[node].draw(node, self.Graph, self.nodes, lambda: print(node))
                 #self.nodes[node].draw(str(node), lambda: print(node))
 
