@@ -2,7 +2,7 @@ from Map import  MapScene
 from  Options import OptionsScene
 from  Menu import MainMenuScene
 from  Battle import BattleScene
-from Camp import CampScene
+from Camp import CampScene, CampUpgradeScene
 from Chest import ChestScene
 
 
@@ -19,6 +19,7 @@ class UserInterface:
         self.CreateBattle()
         self.CreateChest()
         self.CreateCamp()
+        self.CreateCampUpgrade()
 
     def changeScene(self,scene, monster = None):
         if scene[0:2]=="Re":
@@ -72,4 +73,7 @@ class UserInterface:
 
     def CreateCamp(self):
         self.scenes['Camp'] = CampScene(screen=self.screen, name="Camp",
+                                      bg_image="Agnosia_assets/Agnosia_background_camp.png", change=self.changeScene)
+    def CreateCampUpgrade(self):
+        self.scenes['CampUpgrade'] = CampUpgradeScene(screen=self.screen, name="CampUpgrade",
                                       bg_image="Agnosia_assets/Agnosia_background_camp.png", change=self.changeScene)

@@ -1,5 +1,6 @@
 from SETTINGS import *
-screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.FULLSCREEN)
+#screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.FULLSCREEN)
+screen = pygame.display.set_mode((WIDTH,HEIGHT))
 from UserInterfaceClass import UserInterface
 from Classes import Player, Goblin
 
@@ -20,7 +21,7 @@ play = True
 
 while play:
     scene = UI.draw(player, mobs)
-    if scene =="Battle":
+    if scene == "Battle":
         mobs = UI.mobs
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
@@ -55,6 +56,18 @@ while play:
                 if len(dragged) > 0:
                     for a in dragged:
                         a.rect.move_ip(e.rel)
+        elif scene == "CampUpgrade":
+            for a in player.deck:
+                if a.canBeUpgraded():
+                    items.add(a)
+            if e.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                for b in items:
+                    if b.rect.collidepoint(e.pos):
+                        b.upgrade(player)
+                        UI.changeScene("Map")
+
+
     if scene=="None":
         play = False
     items.empty()

@@ -113,7 +113,7 @@ class MapScene(Scene):
                 self.nodes[node].draw(node,self.Graph,self.nodes,lambda: self.change("Battle", self.events[node]))
                 player.endTurn(1)
             elif type(self.events[node]) is Classes.Camp:
-                print(type(self.events[node]))
+                #print(type(self.events[node]))
                 self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Camp"))
             elif type(self.events[node]) is Classes.Treasure:
                 self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Chest"))
