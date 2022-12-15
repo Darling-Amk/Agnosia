@@ -44,7 +44,7 @@ class Attack(Card):
 
     def upgrade(self, player):
         a = AttackUpgraded()
-        player.deck.add(a)
+        player.deck.append(a)
         player.deck.remove(self)
 
     def play(self, player, monster):
@@ -130,7 +130,7 @@ class Shield(Card):
 
     def upgrade(self, player):
         a = ShieldUpgraded()
-        player.deck.add(a)
+        player.deck.append(a)
         player.deck.remove(self)
 
     def play(self, player, monster):
@@ -194,7 +194,7 @@ class UnexpectedMove(Card):
 
     def upgrade(self, player):
         a = UnexpectedMoveUpgraded()
-        player.deck.add(a)
+        player.deck.append(a)
         player.deck.remove(self)
 
     def play(self, player, monster):
@@ -286,7 +286,7 @@ class Burning(Card):
 
     def upgrade(self, player):
         a = BurningUpgraded()
-        player.deck.add(a)
+        player.deck.append(a)
         player.deck.remove(self)
 
     def play(self, player, monster):
@@ -349,7 +349,7 @@ class SharpBlade(Card):
 
     def upgrade(self, player):
         a = AttackUpgraded()
-        player.deck.add(a)
+        player.deck.append(a)
         player.deck.remove(self)
 
     def play(self, player, monster):
