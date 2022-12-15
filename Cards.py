@@ -29,6 +29,7 @@ class Attack(Card):
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
         self.damage = 5
+        self.type = "Attack"
         self.upgraded = False
         self._canBeUpgraded = True
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Strike.png").convert_alpha(), (148,234))
@@ -71,6 +72,7 @@ class AttackUpgraded(Card):
         super(AttackUpgraded, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
+        self.type = "Attack"
         self.upgraded = True
         self._canBeUpgraded = False
         self.damage = 8
@@ -113,6 +115,7 @@ class Shield(Card):
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
         self.block = 5
+        self.type = "Defend"
         self.upgraded = False
         self._canBeUpgraded = True
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Shield.png").convert_alpha(), (148,234))
@@ -144,6 +147,7 @@ class ShieldUpgraded(Card):
         super(ShieldUpgraded, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
+        self.type = "Defend"
         self.upgraded = True
         self._canBeUpgraded = False
         self.block = 8
@@ -175,6 +179,7 @@ class UnexpectedMove(Card):
         super(UnexpectedMove, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 0
+        self.type = "Utility"
         self.upgraded = False
         self._canBeUpgraded = True
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/UnexpectedMove.png").convert_alpha(), (148,234))
@@ -214,6 +219,7 @@ class UnexpectedMoveUpgraded(Card):
         pygame.sprite.Sprite.__init__(self)
         self._price = 0
         self.damage = 2
+        self.type = "Utility"
         self.upgraded = True
         self._canBeUpgraded = False
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/UnexpectedMove+.png").convert_alpha(),
@@ -265,6 +271,7 @@ class Burning(Card):
         super(Burning, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
+        self.type = "Attack"
         self.upgraded = False
         self._canBeUpgraded = True
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Burn.png").convert_alpha(), (148,234))
@@ -327,6 +334,7 @@ class SharpBlade(Card):
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
         self.damage = 9
+        self.type = "Attack"
         self.upgraded = False
         self._canBeUpgraded = True
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Strike.png").convert_alpha(), (148,234))
@@ -372,6 +380,7 @@ class SharpBladeUpgraded(Card):
         super(SharpBladeUpgraded, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
+        self.type = "Attack"
         self.upgraded = True
         self._canBeUpgraded = False
         self.damage = 12
