@@ -53,6 +53,7 @@ class Player(Creature):
     def __init__(self):
         # Конструктор родителя
         super(Player, self).__init__()
+        self.healthMax = 100
         self.health = 100
         self.block = 0
         self.artifacts = []
@@ -116,6 +117,11 @@ class Player(Creature):
         if(ok != 1):
             ok.turn()
         self.block = 0
+
+    def rest(self):
+        self.health += int(self.healthMax*0.3)
+        if self.health > self.healthMax:
+            self.health = self.healthMax
 
 
 class phase(Enum):
