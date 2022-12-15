@@ -189,7 +189,7 @@ class Goblin(Monster):
         super(Goblin, self).__init__(player)
         self.health = 50
         self.block = 0
-        self.damage = 45
+        self.damage = 5
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster4.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
@@ -225,7 +225,7 @@ class Vampire(Monster):
         super(Vampire, self).__init__(player)
         self.health = 20
         self.block = 0
-        self.damage = 10
+        self.damage = 5
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster1.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
@@ -246,7 +246,7 @@ class Vampire(Monster):
             self.makeDamage(5)
         self.player.makeDamage(dmg)
         self.player.makeEffect("blind", 1)
-        self.health += 10
+        self.health += 5
         for eff in self.effects:
             if self.effects[eff]>0:
                 self.effects[eff]-=1
@@ -257,7 +257,7 @@ class Phoenix(Monster):
         super(Phoenix, self).__init__(player)
         self.health = 30
         self.block = 0
-        self.damage =50
+        self.damage =10
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster2.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(
@@ -290,7 +290,7 @@ class Dragon(Monster):
         super(Dragon, self).__init__(player)
         self.health = 70
         self.block = 0
-        self.damage = 25
+        self.damage = 5
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_monster3.png").convert_alpha(),
                                             (205, 300))
         self.rect = self.image.get_rect(

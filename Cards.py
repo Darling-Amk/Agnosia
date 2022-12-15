@@ -264,7 +264,10 @@ class UnexpectedMoveUpgraded(Card):
             if len(player.draw) == 0:
                 player.draw = player.deck.copy()
                 for j in player.hand:
-                    player.draw.remove(j)
+                    try:
+                        player.draw.remove(j)
+                    except ValueError:
+                        pass
                 shuffle(player.draw)
             player.hand.append(player.draw.pop())
 
@@ -311,6 +314,7 @@ class BurningUpgraded(Card):
         super(BurningUpgraded, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 2
+        self.type = "Attack"
         self.upgraded = True
         self._canBeUpgraded = False
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Burn+.png").convert_alpha(),
@@ -700,6 +704,7 @@ class InfectionUpgraded(Card):
         super(InfectionUpgraded, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
+        self.type = "Attack"
         self.upgraded = True
         self._canBeUpgraded = False
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Infection+.png").convert_alpha(),
@@ -769,6 +774,7 @@ class PlagueUpgraded(Card):
         super(PlagueUpgraded, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 2
+        self.type = "Attack"
         self.upgraded = True
         self._canBeUpgraded = False
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Plague+.png").convert_alpha(),
