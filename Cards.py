@@ -539,6 +539,7 @@ class EnBurst(Card):
         player.deck.remove(self)
 
     def play(self, player, monster):
+        player.hand.remove(self)
         player.energy += self.energy
         return 1
 
@@ -568,6 +569,7 @@ class EnBurstUpgraded(Card):
         pass
 
     def play(self, player, monster):
+        player.hand.remove(self)
         player.energy += self.energy
         return 1
 
