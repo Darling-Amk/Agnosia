@@ -60,6 +60,7 @@ class Player(Creature):
         self.deck = []
         self.hand = []
         self.draw = []
+        self.energyMax = 3
         self.energy = 3
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_gg.png").convert_alpha(), (205, 300))
         self.rect = self.image.get_rect(
@@ -80,8 +81,10 @@ class Player(Creature):
         self.deck = []
         self.hand = []
         self.draw = []
+        self.healthMax = 100
         self.health = 100
         self.block = 0
+        self.energyMax = 3
         self.energy = 3
         x = Cards.Attack()
         for a in range(4):
@@ -96,14 +99,13 @@ class Player(Creature):
 
     def endTurn(self, ok):
         start = 800
-        self.energy = 3
+        self.energy = self.energyMax
         self.hand.clear()
         if self.effects["fire"]>0: # fire
             self.makeDamage(5)
         for eff in self.effects:
             if self.effects[eff]>0:
                 self.effects[eff]-=1
-        #print(len(self.draw))
         for i in range(4):
             if len(self.draw) == 0:
                 self.draw = self.deck.copy()
@@ -122,6 +124,10 @@ class Player(Creature):
         self.health += int(self.healthMax*0.3)
         if self.health > self.healthMax:
             self.health = self.healthMax
+
+    def getRandomCard(self):
+        card = Cards.getThreeCards()[0]
+        self.deck.append(card)
 
 
 class phase(Enum):

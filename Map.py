@@ -116,7 +116,7 @@ class MapScene(Scene):
                 #print(type(self.events[node]))
                 self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Camp"))
             elif type(self.events[node]) is Classes.Treasure:
-                self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Chest"))
+                self.nodes[node].draw(node, self.Graph, self.nodes, lambda: (player.getRandomCard() and False) or self.change("Chest"))
             elif type(self.events[node]) is Classes.RandomEvent:                
                 rnd = random.randrange(0, 3)
                 if(rnd == 0):

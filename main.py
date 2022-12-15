@@ -18,7 +18,7 @@ items = pygame.sprite.Group()
 mobs = Goblin(player)
 
 UI = UserInterface(screen, player)
-#UI.restart.add(player.restart)
+UI.restart.add(player.restart)
 play = True
 
 while play:

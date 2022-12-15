@@ -22,8 +22,9 @@ class Card(pygame.sprite.Sprite):
     def play(self, player, creature):
         pass
 
+
 def getThreeCards():
-    allCards = [AttackUpgraded(), ShieldUpgraded(), Burning(), SharpBlade()]
+    allCards = [AttackUpgraded(), ShieldUpgraded(), UnexpectedMoveUpgraded(), SharpBlade(), Burning()]
     first = random.randrange(0, len(allCards) - 2)
     second = random.randrange(first + 1, len(allCards) - 1)
     third = random.randrange(second + 1, len(allCards))
@@ -337,14 +338,14 @@ class BurningUpgraded(Card):
 
 class SharpBlade(Card):
     def __init__(self):
-        super(Attack, self).__init__()
+        super(SharpBlade, self).__init__()
         pygame.sprite.Sprite.__init__(self)
         self._price = 1
         self.damage = 9
         self.type = "Attack"
         self.upgraded = False
         self._canBeUpgraded = True
-        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Strike.png").convert_alpha(), (148,234))
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/SharpSword.png").convert_alpha(), (148,234))
         self.rect = self.image.get_rect(
             center=(500, 800))
 
@@ -391,7 +392,7 @@ class SharpBladeUpgraded(Card):
         self.upgraded = True
         self._canBeUpgraded = False
         self.damage = 12
-        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/Strike+.png").convert_alpha(),
+        self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/Cards/SharpSword+.png.png").convert_alpha(),
                                             (148, 234))
         self.rect = self.image.get_rect(
             center=(500, 800))
