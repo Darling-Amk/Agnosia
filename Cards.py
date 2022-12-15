@@ -760,7 +760,13 @@ class Plague(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            for i in range(len(monster.effects)):
+            if monster.effects["weakness"] > 0:  # weakness
+                dmg += 5
+            if monster.effects["fire"] > 0:  # power
+                dmg += 5
+            if monster.effects["disarm"] > 0:  # disarm
+                dmg += 5
+            if monster.effects["blind"] > 0:  # blind
                 dmg += 5
             tmp = monster.makeDamage(dmg)
             if tmp:
@@ -796,7 +802,13 @@ class PlagueUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            for i in range(len(monster.effects)):
+            if monster.effects["weakness"] > 0:  # weakness
+                dmg += 8
+            if monster.effects["fire"] > 0:  # power
+                dmg += 8
+            if monster.effects["disarm"] > 0:  # disarm
+                dmg += 8
+            if monster.effects["blind"] > 0:  # blind
                 dmg += 8
             tmp = monster.makeDamage(dmg)
             if tmp:
