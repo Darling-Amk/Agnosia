@@ -26,7 +26,7 @@ class BattleScene(Scene):
         weakness = pygame.image.load("Agnosia_assets/effect_icons/weakness.png")
         self.weaknessIcon = pygame.transform.scale(weakness, (40, 40))
         self.backBtn = Button(145, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
-        self.endTurnBtn = Button(300, 80, None, (0, 0, 0), screen, BATTLE_HP_FONT)
+        self.endTurnBtn = Button(300, 80, None, None, screen, BATTLE_HP_FONT)
 
 
     def draw(self, player, mobs):

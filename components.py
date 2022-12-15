@@ -1,6 +1,7 @@
 import pygame
 from SETTINGS import MAIN_MENU_FONT
 import Classes
+import time
 monsters = [
     pygame.image.load("Agnosia_assets/Agnosia_map_monster_missed.png").convert_alpha(),
     pygame.image.load("Agnosia_assets/Agnosia_map_monster.png").convert_alpha(),
@@ -27,6 +28,7 @@ def draw_text(surface,text,x,y,font,color=(255, 255, 255)):
 
 class Button:
     def __init__(self,w,h,color,color_hover,screen,font):
+        self.last = time.time()-2
         self.screen = screen
         self.width = w
         self.height = h
@@ -37,15 +39,22 @@ class Button:
     def draw(self,x,y,text,command=None):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
+        f = self.last+1< time.time()
         if x < mouse[0] < x + self.width and y < mouse[1] < y + self.height:
             if self.color_hover:
                 pygame.draw.rect( self.screen,self.color_hover,(x,y,self.width,self.height))
-            if click[0]==1 and command is not None:
+            if click[0]==1 and command is not None and f:
+                self.last = time.time()
                 command()
-                pygame.time.delay(100)
+                # pygame.time.delay(300)
+
         else:
-            if self.color:
+            if self.color :
                 pygame.draw.rect( self.screen,self.color,(x,y,self.width,self.height))
+
+        if not f:
+            pygame.draw.rect(self.screen, (100, 100, 100), (x - 10, y - 10, self.width + 20, self.height + 20))
+
         draw_text(self.screen, text, x, y,self.font)
 
 class ButtonImage:
@@ -72,6 +81,7 @@ class ButtonImage:
 
         if x < mouse[0] < x + self.width and y < mouse[1] < y + self.height:
             if click[0]==1 and command is not None:
+
                 command()
                 pygame.time.delay(100)
             self.screen.blit(self.img_hover, (x, y))
