@@ -1,6 +1,6 @@
 import pygame
 from components import Button, draw_text, ButtonImage
-from SETTINGS import MAIN_MENU_FONT,MAIN_MENU_FONT_LOGO, WIDTH, HEIGHT, MAP_FONT
+from SETTINGS import MAIN_MENU_FONT,MAIN_MENU_FONT_LOGO,BATTLE_HP_FONT, WIDTH, HEIGHT, MAP_FONT
 
 from Classes import  Scene
 
@@ -26,7 +26,7 @@ class BattleScene(Scene):
         weakness = pygame.image.load("Agnosia_assets/effect_icons/weakness.png")
         self.weaknessIcon = pygame.transform.scale(weakness, (40, 40))
         self.backBtn = Button(145, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
-        self.endTurnBtn = Button(360, 80, None, (0, 0, 0), screen, MAIN_MENU_FONT)
+        self.endTurnBtn = Button(300, 80, None, (0, 0, 0), screen, BATTLE_HP_FONT)
 
 
     def draw(self, player, mobs):
@@ -36,18 +36,18 @@ class BattleScene(Scene):
         # draw rect
         rect = pygame.Rect(0, 0, WIDTH, HEIGHT//12)
         pygame.draw.rect(self.screen, (27,27,27), (0, 0, WIDTH, HEIGHT//12))
-        pygame.draw.rect(self.screen, (27, 27, 27), (0, HEIGHT-HEIGHT//12, WIDTH, HEIGHT // 12))
+        #pygame.draw.rect(self.screen, (27, 27, 27), (0, HEIGHT-HEIGHT//12, WIDTH, HEIGHT // 12))
         self.backBtn.draw(877, HEIGHT - HEIGHT // 12, "Back", lambda: self.change("Map"))
         # draw gear image button
         self.btnImg.draw(WIDTH-HEIGHT//12,0,lambda: self.change("Options"))
-        self.endTurnBtn.draw(WIDTH-3*WIDTH // 12, HEIGHT-HEIGHT//12, "End Turn", lambda: player.endTurn(mobs))
+        self.endTurnBtn.draw(1578, 922,"", lambda: player.endTurn(mobs))
 
         #   draw characteristics
-        draw_text(self.screen,f"H : {player.health}",WIDTH//48,HEIGHT-HEIGHT//12,MAP_FONT,color=(255,255,255))
-        draw_text(self.screen, f"E : {player.energy}", WIDTH-40*WIDTH // 48, HEIGHT - HEIGHT // 12, MAP_FONT,
-                  color=(255, 255, 255))
-        draw_text(self.screen, f"B : {player.block}", WIDTH - 32 * WIDTH // 48, HEIGHT - HEIGHT // 12, MAP_FONT,
-                  color=(255, 255, 255))
+        draw_text(self.screen,f"{player.health}",WIDTH-1477,HEIGHT-202,BATTLE_HP_FONT,color=(32,158,0))
+        draw_text(self.screen, f"{player.energy}", WIDTH-1530, HEIGHT -82, BATTLE_HP_FONT,
+                  color=(255, 181, 36))
+        draw_text(self.screen, f"{player.block}", WIDTH - 1500, HEIGHT -140, BATTLE_HP_FONT,
+                  color=(1, 103, 255))
         draw_text(self.screen, f"Enemy H : {mobs.health}", WIDTH - 6 * WIDTH // 12, 0, MAP_FONT,
                   color=(255, 255, 255))
         draw_text(self.screen, f"Enemy B : {mobs.block}", WIDTH - 3 * WIDTH // 12, 0, MAP_FONT,

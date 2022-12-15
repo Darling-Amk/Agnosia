@@ -112,7 +112,7 @@ class Player(Creature):
                 shuffle(self.draw)
             self.hand.append(self.draw.pop())
         for a in self.hand:  # 1920 - длина области, ширина будет 200
-            a.rect = a.image.get_rect(center=(start, 870))
+            a.rect = a.image.get_rect(center=(start, 941))
             start += 150
         if(ok != 1):
             ok.turn()
