@@ -1,8 +1,8 @@
 from SETTINGS import *
 import random
 from datetime import datetime
-#screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.FULLSCREEN)
-screen = pygame.display.set_mode((WIDTH,HEIGHT))
+screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.FULLSCREEN)
+#screen = pygame.display.set_mode((WIDTH,HEIGHT))
 from UserInterfaceClass import UserInterface
 from Classes import Player, Goblin
 
@@ -14,7 +14,7 @@ clock = pygame.time.Clock()
 pygame.mixer.init()
 pygame.mixer.music.load('audio/BOYnextdoor.mp3')
 pygame.mixer.music.set_volume(0.1)
-pygame.mixer.music.play()
+pygame.mixer.music.play(-1)
 
 player = Player()
 player.artifacts = ["hui","pizda"]

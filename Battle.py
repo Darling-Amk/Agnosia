@@ -39,7 +39,7 @@ class BattleScene(Scene):
         rect = pygame.Rect(0, 0, WIDTH, HEIGHT//12)
         pygame.draw.rect(self.screen, (27,27,27), (0, 0, WIDTH, HEIGHT//12))
         #pygame.draw.rect(self.screen, (27, 27, 27), (0, HEIGHT-HEIGHT//12, WIDTH, HEIGHT // 12))
-        self.backBtn.draw(877, HEIGHT - HEIGHT // 12, "Back", lambda: self.change("Map"))
+        #self.backBtn.draw(877, HEIGHT - HEIGHT // 12, "Back", lambda: self.change("Map"))
         # draw gear image button
         self.btnImg.draw(WIDTH-HEIGHT//12,0,lambda: self.change("Options"))
         self.endTurnBtn.draw(1578, 922,"", lambda: player.endTurn(mobs))
