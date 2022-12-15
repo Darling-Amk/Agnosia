@@ -1,5 +1,5 @@
 from SETTINGS import *
-screen = pygame.display.set_mode((WIDTH,HEIGHT))
+screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.FULLSCREEN)
 from UserInterfaceClass import UserInterface
 from Classes import Player, Goblin
 
@@ -11,7 +11,6 @@ clock = pygame.time.Clock()
 player = Player()
 player.artifacts = ["hui","pizda"]
 dragged = pygame.sprite.Group()
-monsterHP = 10
 items = pygame.sprite.Group()
 mobs = Goblin(player)
 

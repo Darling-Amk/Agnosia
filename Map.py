@@ -110,6 +110,13 @@ class MapScene(Scene):
                     type(self.events[node]) is Classes.Phoenix:
                 self.nodes[node].draw(node,self.Graph,self.nodes,lambda: self.change("Battle", self.events[node]))
                 player.endTurn(1)
+            elif type(self.events[node]) is Classes.Camp:
+                print(type(self.events[node]))
+                self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Camp"))
+            elif type(self.events[node]) is Classes.Treasure:
+                self.nodes[node].draw(node, self.Graph, self.nodes, lambda: self.change("Chest"))
+            elif type(self.events[node]) is Classes.RandomEvent:
+                self.nodes[node].draw(node, self.Graph, self.nodes, lambda: print(node))
             else:
                 self.nodes[node].draw(node, self.Graph, self.nodes, lambda: print(node))
                 #self.nodes[node].draw(str(node), lambda: print(node))
