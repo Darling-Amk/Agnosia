@@ -42,7 +42,7 @@ while play:
                 else:
                     dragged.empty()
                 for b in items:
-                    if len(dragged) == 0 and b.rect.colliderect(mobs.rect) and b.type == "Attack":
+                    if len(dragged) == 0 and b.rect.colliderect(mobs.rect) and (b.type == "Utility" or b.type == "Attack"):
                         flag = b.play(player,mobs)
                         #if flag == 1:
                             #player.hand.remove(b)
