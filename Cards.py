@@ -22,6 +22,13 @@ class Card(pygame.sprite.Sprite):
     def play(self, player, creature):
         pass
 
+def getThreeCards():
+    allCards = [AttackUpgraded(), ShieldUpgraded(), Burning(), SharpBlade()]
+    first = random.randrange(0, len(allCards) - 2)
+    second = random.randrange(first + 1, len(allCards) - 1)
+    third = random.randrange(second + 1, len(allCards))
+    return [allCards[first], allCards[second], allCards[third]]
+
 
 class Attack(Card):
     def __init__(self):

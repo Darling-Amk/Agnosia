@@ -1,6 +1,6 @@
 import pygame
 from components import Button, draw_text, ButtonImage
-from SETTINGS import MAIN_MENU_FONT,MAIN_MENU_FONT_LOGO,BATTLE_HP_FONT, WIDTH, HEIGHT, MAP_FONT
+from SETTINGS import MAIN_MENU_FONT,MAIN_MENU_FONT_LOGO,BATTLE_HP_FONT,BATTLE_CARD_FONT, WIDTH, HEIGHT, MAP_FONT
 
 from Classes import  Scene
 
@@ -78,6 +78,12 @@ class BattleScene(Scene):
             self.screen.blit(self.weaknessIcon, (1682, 650, 40, 40))
         for a in player.hand:
             self.screen.blit(a.image, a.rect)
+
+        draw_text(self.screen, f"{player.health}", 280, 600, BATTLE_CARD_FONT, color=(255, 255, 255))
+        draw_text(self.screen, f"{player.block}", 290, 625, BATTLE_CARD_FONT, color=(255, 255, 255))
+
+        draw_text(self.screen, f"{mobs.health}",WIDTH - 310, HEIGHT - 479, BATTLE_CARD_FONT, color=(255, 255, 255))
+        draw_text(self.screen, f"{mobs.block}", WIDTH - 305, HEIGHT - 454, BATTLE_CARD_FONT, color=(255, 255, 255))
 
         #   draw arts
         for i,a in enumerate(player.artifacts):
