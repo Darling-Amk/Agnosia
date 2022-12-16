@@ -1,5 +1,5 @@
 import sys
-sys.path.append('Scenes')
+sys.path.insert(1,'Scenes')
 
 import Cards
 from Scenes.Map import  MapScene
