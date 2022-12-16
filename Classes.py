@@ -96,6 +96,7 @@ class Player(Creature):
         x = Cards.UnexpectedMove()
         self.deck.append(x)
 
+
     def restart(self):
         self.artifacts = []
         self.deck = []
@@ -165,7 +166,7 @@ class Player(Creature):
             if minNumber < counter <= minNumber + 4:
                 if counter > len(self.hand):
                     break
-                a.rect = a.image.get_rect(center=(start, 941))
+                a.rect = a.image.get_rect(center=(start, 928))
                 start += 150
             else:
                 a.rect = a.image.get_rect(center=(start, -1000))
@@ -175,6 +176,8 @@ class Player(Creature):
         if len(self.log) > 7:
             self.log.pop(0)
         self.log.append(line)
+
+
 
 
 
