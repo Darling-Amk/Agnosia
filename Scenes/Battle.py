@@ -33,9 +33,12 @@ class BattleScene(Scene):
 
     def draw(self, player, mobs):
         if mobs.health<=0:
-            player.effects = {"weakness": 0, "blind": 0, "fire": 0, "disarm": 0, "power": 0}
-            player.log.clear()
-            self.change("Award")
+            if player.flag == 1:
+                self.change("Victory")
+            else:
+                player.effects = {"weakness": 0, "blind": 0, "fire": 0, "disarm": 0, "power": 0}
+                player.log.clear()
+                self.change("Award")
         self.screen.fill((255, 0, 0))
         self.screen.blit(self.bg, (0, 0))
         startY=640

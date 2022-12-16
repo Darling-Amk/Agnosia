@@ -111,7 +111,12 @@ class MapScene(Scene):
                     type(self.events[node]) is Classes.Vampire or \
                     type(self.events[node]) is Classes.Goblin or \
                     type(self.events[node]) is Classes.Phoenix:
-                self.nodes[node].draw(node,self.Graph,self.nodes,lambda: self.change("Battle", self.events[node]))
+                if node == "Out":
+                    self.nodes[node].draw(node, self.Graph, self.nodes,
+                                          lambda: (player.setFlag() and False) or self.change("Battle", self.events[node]))
+                else:
+                    self.nodes[node].draw(node,self.Graph,self.nodes,lambda: self.change("Battle", self.events[node]))
+
                 player.endTurn(1)
             elif type(self.events[node]) is Classes.Camp:
                 #print(type(self.events[node]))

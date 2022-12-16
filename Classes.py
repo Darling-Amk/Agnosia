@@ -82,6 +82,7 @@ class Player(Creature):
         self.energy = 3
         self.handNumber = 0
         self.log = []
+        self.flag = 0
         self.image = pygame.transform.scale(pygame.image.load("Agnosia_assets/agnosia_gg.png").convert_alpha(), (205, 300))
         self.rect = self.image.get_rect(
             center=(300, 500))
@@ -108,6 +109,8 @@ class Player(Creature):
         self.block = 0
         self.energyMax = 3
         self.energy = 3
+        self.flag = 0
+        self.effects = {"weakness": 0, "blind": 0, "fire": 0, "disarm": 0, "power": 0}
         x = Cards.Attack()
         for a in range(4):
             self.deck.append(x)
@@ -118,6 +121,7 @@ class Player(Creature):
             x = Cards.Shield()
         x = Cards.UnexpectedMove()
         self.deck.append(x)
+        self.log = []
 
     def endTurn(self, ok):
         self.energy = self.energyMax
@@ -178,7 +182,8 @@ class Player(Creature):
             self.log.pop(0)
         self.log.append(line)
 
-
+    def setFlag(self):
+        self.flag = 1
 
 
 

@@ -8,6 +8,7 @@ from  Menu import MainMenuScene
 from  Battle import BattleScene
 from Camp import CampScene, CampUpgradeScene
 from Chest import ChestScene, RewardScene
+from Victory import VictoryScene
 
 
 class UserInterface:
@@ -87,3 +88,8 @@ class UserInterface:
     def CreateReward(self):
         self.scenes['Award'] = RewardScene(screen=self.screen, name="Award",
                                       bg_image="Agnosia_assets/Agnosia_background_rewards.png", change=self.changeScene)
+
+    def CreateVictory(self):
+        self.scenes['Victory'] = RewardScene(screen=self.screen, name="Victory",
+                                           bg_image="Agnosia_assets/Agnosia_qr.png",
+                                           change=self.changeScene)
