@@ -14,6 +14,6 @@ class VictoryScene(Scene):
         self.screen.fill((255, 0, 0))
         self.screen.blit(self.bg, (0, 0))
         # For drawing
-        Scene.draw_text(self.screen, "Agnosia", 630, 247, MAIN_MENU_FONT_LOGO, color=(0, 0, 0))
-        self.btn.draw(877, 925, "Back", lambda: self.change("Menu"))
+        #Scene.draw_text(self.screen, "Agnosia", 630, 247, MAIN_MENU_FONT_LOGO, color=(0, 0, 0))
+        #self.btn.draw(877, 925, "Back", lambda: self.change("Menu"))
         pygame.display.flip()

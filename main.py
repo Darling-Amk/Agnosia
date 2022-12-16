@@ -1,8 +1,8 @@
 from SETTINGS import *
 import random
 from datetime import datetime
-screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.FULLSCREEN)
-#screen = pygame.display.set_mode((WIDTH,HEIGHT))
+#screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.FULLSCREEN)
+screen = pygame.display.set_mode((WIDTH,HEIGHT))
 from UserInterfaceClass import UserInterface
 from Classes import Player, Goblin
 
@@ -13,7 +13,7 @@ clock = pygame.time.Clock()
 
 pygame.mixer.init()
 pygame.mixer.music.load('audio/BOYnextdoor.mp3')
-pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.set_volume(0)
 pygame.mixer.music.play(-1)
 
 player = Player()
@@ -53,7 +53,12 @@ while play:
                         #if flag == 1:
                             #player.hand.remove(b)
                         if flag == 2:
-                            UI.changeScene("Award")
+                            if player.flag == 1:
+                                UI.changeScene("Victory")
+                            else:
+                                player.effects = {"weakness": 0, "blind": 0, "fire": 0, "disarm": 0, "power": 0}
+                                player.log.clear()
+                                UI.changeScene("Award")
                     if len(dragged) == 0 and b.rect.colliderect(player.rect) and (b.type == "Utility" or b.type == "Defend"):
                         flag = b.play(player,mobs)
                         player.showHand(0)

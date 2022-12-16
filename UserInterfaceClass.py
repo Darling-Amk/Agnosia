@@ -26,6 +26,7 @@ class UserInterface:
         self.CreateCamp()
         self.CreateCampUpgrade()
         self.CreateReward()
+        self.CreateVictory()
 
     def changeScene(self,scene, monster = None):
         if scene[0:2]=="Re":
@@ -90,6 +91,6 @@ class UserInterface:
                                       bg_image="Agnosia_assets/Agnosia_background_rewards.png", change=self.changeScene)
 
     def CreateVictory(self):
-        self.scenes['Victory'] = RewardScene(screen=self.screen, name="Victory",
+        self.scenes['Victory'] = VictoryScene(screen=self.screen, name="Victory",
                                            bg_image="Agnosia_assets/Agnosia_qr.png",
                                            change=self.changeScene)
