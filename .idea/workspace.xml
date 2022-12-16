@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="268b9148-4928-428d-9380-2df669508ba5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/UserInterfaceClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/UserInterfaceClass.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/test_Classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_Classes.py" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,13 +168,19 @@
       <item itemvalue="Python.main" />
       <item itemvalue="Python.Cards" />
       <item itemvalue="Python.GraphTest" />
+<<<<<<< Updated upstream
       <item itemvalue="Python.UserInterfaceClass" />
+=======
+>>>>>>> Stashed changes
       <item itemvalue="Python.test_Classes" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.test_Classes" />
+<<<<<<< Updated upstream
         <item itemvalue="Python.UserInterfaceClass" />
+=======
+>>>>>>> Stashed changes
         <item itemvalue="Python.GraphTest" />
         <item itemvalue="Python.Cards" />
       </list>
