@@ -2,7 +2,7 @@ import pygame
 
 import Classes
 from components import Button,Node,Edge,ButtonImage,draw_text
-from SETTINGS import MAIN_MENU_FONT,WIDTH,HEIGHT,MAP_FONT
+from SETTINGS import MAIN_MENU_FONT,WIDTH,HEIGHT,MAP_FONT, BATTLE_HP_FONT
 from GraphTest import generateGraph
 from GraphTest import generateEvents
 from Classes import  Scene
@@ -21,10 +21,11 @@ class MapScene(Scene):
         self.art  = pygame.transform.scale(Art, (HEIGHT//12, HEIGHT//12))
         self.createGraph()
         # генератор графа
-        self.btnImg = ButtonImage(screen,HEIGHT//12,HEIGHT//12,
-                                  image="Agnosia_assets/Agnosia_interface_settings.png",
-                                  image_hover="Agnosia_assets/Agnosia_interface_settings_hover.png"
-                                  )
+        #self.btnImg = ButtonImage(screen,HEIGHT//12,HEIGHT//12,
+        #                          image="Agnosia_assets/Agnosia_interface_settings.png",
+          #                        image_hover="Agnosia_assets/Agnosia_interface_settings_hover.png"
+         #                         )
+        self.btnImg = Button(70, 70, None, None, screen, BATTLE_HP_FONT)
         self.btn = Button(200, 42, (0, 255, 0), (0, 0, 0), screen,font = MAIN_MENU_FONT )        
 
     def createGraph(self):
@@ -86,16 +87,16 @@ class MapScene(Scene):
         self.screen.blit(self.bg, (0, 0))
 
         # draw rect
-        pygame.draw.rect(self.screen, (27,27,27), (0, 0, WIDTH, HEIGHT//12))
-        pygame.draw.rect(self.screen, (27, 27, 27), (0, HEIGHT-HEIGHT//12, WIDTH, HEIGHT // 12))
+        #pygame.draw.rect(self.screen, (27,27,27), (0, 0, WIDTH, HEIGHT//12))
+        #pygame.draw.rect(self.screen, (27, 27, 27), (0, HEIGHT-HEIGHT//12, WIDTH, HEIGHT // 12))
 
         # draw gear image button
-        self.btnImg.draw(WIDTH-HEIGHT//12,0,lambda: self.change("Options"))
+        self.btnImg.draw(WIDTH-HEIGHT//12,0,"",lambda: self.change("Options"))
 
         #   draw characteristics
-        draw_text(self.screen,f"Player Health : {player.health}",WIDTH//12,HEIGHT-HEIGHT//12,MAP_FONT,color=(255,255,255))
-        draw_text(self.screen, f"Player Energy : {player.energy}", WIDTH-4*WIDTH // 12, HEIGHT - HEIGHT // 12, MAP_FONT,
-                  color=(255, 255, 255))
+        draw_text(self.screen,f"{player.health}/{player.healthMax}",200,1027,BATTLE_HP_FONT,color=(107,250,104))
+        #draw_text(self.screen, f"Player Energy : {player.energy}", WIDTH-4*WIDTH // 12, HEIGHT - HEIGHT // 12, MAP_FONT,
+          #        color=(255, 255, 255))
 
         #   draw arts
         for i,a in enumerate(player.artifacts):
