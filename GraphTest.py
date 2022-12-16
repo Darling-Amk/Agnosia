@@ -50,7 +50,7 @@ def generateGraph():
 
         for j in range(1, lstnum + 1):                        
             msk = random.randrange(1, (1 << num))
-            print((i - 2) * Size + j, " ", msk)
+            #print((i - 2) * Size + j, " ", msk)
             for edge in range(0, num):
                 if((msk & (1 << edge)) != 0):                    
                     G[(i - 2) * Size + j].add((i - 1) * Size + edge + 1)
@@ -66,25 +66,24 @@ def generateGraph():
         
     for i in toDel:
         G = delVertex(G, i)
-
-    print(G)
+    
     return G
 
-def generateEvents(G):
+def generateEvents(G, p):
     events = {}
-    events["In"] = chooseMonster()
-    events["Out"] = chooseMonster()
+    events["In"] = chooseMonster(p)
+    events["Out"] = chooseMonster(p)
     for i in G:
         if(i == "In" or i == "Out"): continue
-        print(i, " ", (i - 1) / Size)
-        if(((i - 1) // Size) % 2 != 0): events[i] = chooseMonster()
+        #print(i, " ", (i - 1) / Size)
+        if(((i - 1) // Size) % 2 != 0): events[i] = chooseMonster(p)
         else:
             rnd = random.randrange(0, 3)
             if(rnd == 0):
-                events[i] = Camp()
+                events[i] = Camp(p)
             elif(rnd == 1):
-                events[i] = Treasure()
-            else: events[i] = RandomEvent() 
+                events[i] = Treasure(p)
+            else: events[i] = RandomEvent(p) 
    # print(events)   
     return events
 
