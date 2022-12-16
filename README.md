@@ -4,6 +4,6 @@ Agnosia - это rogue-like игра с механикой построения 
 1. Перейти по ссылке: https://drive.google.com/file/d/1q46whTkaLsfGg6BWxA_g6iGlAxPF1CJ2/view?usp=sharing
 2. Скачать архив Agnosia.zip
 3. Распаковать архив Agnosia.zip в удобное для Вас место
-4. Запустить Agosia.exe
+4. Запустить Agnosia.exe
  
  Приятной игры!
