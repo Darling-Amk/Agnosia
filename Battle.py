@@ -7,14 +7,14 @@ from Classes import  Scene
 class BattleScene(Scene):
     def __init__(self,screen,name,change,bg_image):
 
-        super().__init__(screen,name,change,bg_image)        
+        super().__init__(screen,name,change,bg_image)
         Art = pygame.image.load("Agnosia_assets/tmp_art.png")
         Art.set_colorkey((255, 255, 255))
         self.art = pygame.transform.scale(Art, (HEIGHT // 12, HEIGHT // 12))
-        self.btnImg = ButtonImage(screen,HEIGHT//12,HEIGHT//12,
-                                  image="Agnosia_assets/Agnosia_interface_settings.png",
-                                  image_hover="Agnosia_assets/Agnosia_interface_settings_hover.png"
-                                  )
+        #self.btnImg = ButtonImage(screen,HEIGHT//12,HEIGHT//12,
+        #                          image="Agnosia_assets/Agnosia_interface_settings.png",
+        #                          image_hover="Agnosia_assets/Agnosia_interface_settings_hover.png"
+        #                          )
         fire = pygame.image.load("Agnosia_assets/effect_icons/flame.png")
         self.fireIcon = pygame.transform.scale(fire, (40, 40))
         blind = pygame.image.load("Agnosia_assets/effect_icons/blind.png")
@@ -29,7 +29,7 @@ class BattleScene(Scene):
         self.endTurnBtn = Button(300, 80, None, None, screen, BATTLE_HP_FONT)
         self.pBtn = Button(80, 128, None, None, screen, MAIN_MENU_FONT)
         self.nBtn = Button(80, 128, None, None, screen, MAIN_MENU_FONT)
-
+        self.btnImg = Button(70, 70, None, None, screen, BATTLE_HP_FONT)
 
     def draw(self, player, mobs):
         if mobs.health<=0:
@@ -40,11 +40,11 @@ class BattleScene(Scene):
         startY=640
         # draw rect
         rect = pygame.Rect(0, 0, WIDTH, HEIGHT//12)
-        pygame.draw.rect(self.screen, (27,27,27), (0, 0, WIDTH, HEIGHT//12))
+        #pygame.draw.rect(self.screen, (27,27,27), (0, 0, WIDTH, HEIGHT//12))
         #pygame.draw.rect(self.screen, (27, 27, 27), (0, HEIGHT-HEIGHT//12, WIDTH, HEIGHT // 12))
         #self.backBtn.draw(877, HEIGHT - HEIGHT // 12, "Back", lambda: self.change("Map"))
         # draw gear image button
-        self.btnImg.draw(WIDTH-HEIGHT//12,0,lambda: self.change("Options"))
+        self.btnImg.draw(WIDTH-HEIGHT//12,0,"",lambda: self.change("Options"))
         self.endTurnBtn.draw(1578, 922,"", lambda: player.endTurn(mobs))
         self.pBtn.draw(600, 896, "", lambda: player.showHand(player.handNumber-1))
         self.nBtn.draw(1400, 896, "", lambda: player.showHand(player.handNumber+1))
@@ -61,10 +61,10 @@ class BattleScene(Scene):
                   color=(255, 181, 36))
         draw_text(self.screen, f"{player.block}", WIDTH - 1500, HEIGHT -140, BATTLE_HP_FONT,
                   color=(1, 103, 255))
-        draw_text(self.screen, f"Enemy H : {mobs.health}", WIDTH - 6 * WIDTH // 12, 0, MAP_FONT,
-                  color=(255, 255, 255))
-        draw_text(self.screen, f"Enemy B : {mobs.block}", WIDTH - 3 * WIDTH // 12, 0, MAP_FONT,
-                  color=(255, 255, 255))
+        #draw_text(self.screen, f"Enemy H : {mobs.health}", WIDTH - 6 * WIDTH // 12, 0, MAP_FONT,
+        #          color=(255, 255, 255))
+       # draw_text(self.screen, f"Enemy B : {mobs.block}", WIDTH - 3 * WIDTH // 12, 0, MAP_FONT,
+         #         color=(255, 255, 255))
         self.screen.blit(player.image, player.rect)
         self.screen.blit(mobs.image, mobs.rect)
         pygame.draw.rect(self.screen, (27, 27, 27), (1518, 650, 205, 40))
@@ -102,4 +102,3 @@ class BattleScene(Scene):
         for i,a in enumerate(player.artifacts):
             self.screen.blit(self.art, (i*HEIGHT//12, 0))
         pygame.display.flip()
-
