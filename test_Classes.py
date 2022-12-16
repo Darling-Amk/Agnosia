@@ -41,6 +41,31 @@ def test_end_turn_gives_new_cards():
             a.append(type(card).__name__)
     assert a.__contains__(type(newCard).__name__)
 
+# Тест 2 (Связность графа) (позитивный) [unit] 
+from GraphTest import generateGraph
+from GraphTest import generateEvents
+was = dict()
+def dfs(v, g):
+    was[v] = 1
+    for i in g[v]:
+        if not (i in was):
+            dfs(v)
+
+def graph_test():
+    g = generateGraph()
+    dfs("In", g)
+    for i in g:
+        assert(i in was) is True
+    assert("Out" in was) is True
+    g1 = generateGraph()
+    assert(g1 == g) is False
+    e = generateEvents(g, Player())    
+    lst = Monster()
+    for i in e:
+        if i != lst:
+            ok = 1
+    assert(ok == 1) is True
+
 # Тест 3 (Восполнение энергии) (позитивный) [unit]
 def test_end_turn_energy_recovery():
     player = Player()
