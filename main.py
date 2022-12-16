@@ -34,7 +34,7 @@ while play:
         if e.type == pygame.QUIT:
             play = False
         if scene == "Battle":
-            if player.makeDamage(0):
+            if player.makeDamage(0,player):
                 player.restart()
                 UI.changeScene("Menu")
             for a in player.hand:
@@ -49,12 +49,19 @@ while play:
                 for b in items:
                     if len(dragged) == 0 and b.rect.colliderect(mobs.rect) and (b.type == "Utility" or b.type == "Attack"):
                         flag = b.play(player,mobs)
+                        player.showHand(0)
                         #if flag == 1:
                             #player.hand.remove(b)
                         if flag == 2:
-                            UI.changeScene("Award")
+                            if player.flag == 1:
+                                UI.changeScene("Victory")
+                            else:
+                                player.effects = {"weakness": 0, "blind": 0, "fire": 0, "disarm": 0, "power": 0}
+                                player.log.clear()
+                                UI.changeScene("Award")
                     if len(dragged) == 0 and b.rect.colliderect(player.rect) and (b.type == "Utility" or b.type == "Defend"):
                         flag = b.play(player,mobs)
+                        player.showHand(0)
             elif e.type == pygame.MOUSEMOTION:
                 if len(dragged) > 0:
                     for a in dragged:

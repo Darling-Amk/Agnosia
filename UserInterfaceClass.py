@@ -1,10 +1,14 @@
+import sys
+sys.path.insert(1,'Scenes')
+
 import Cards
-from Map import  MapScene
+from Scenes.Map import  MapScene
 from  Options import OptionsScene
 from  Menu import MainMenuScene
 from  Battle import BattleScene
 from Camp import CampScene, CampUpgradeScene
 from Chest import ChestScene, RewardScene
+from Victory import VictoryScene
 
 
 class UserInterface:
@@ -22,6 +26,7 @@ class UserInterface:
         self.CreateCamp()
         self.CreateCampUpgrade()
         self.CreateReward()
+        self.CreateVictory()
 
     def changeScene(self,scene, monster = None):
         if scene[0:2]=="Re":
@@ -84,3 +89,8 @@ class UserInterface:
     def CreateReward(self):
         self.scenes['Award'] = RewardScene(screen=self.screen, name="Award",
                                       bg_image="Agnosia_assets/Agnosia_background_rewards.png", change=self.changeScene)
+
+    def CreateVictory(self):
+        self.scenes['Victory'] = VictoryScene(screen=self.screen, name="Victory",
+                                           bg_image="Agnosia_assets/Agnosia_qr.png",
+                                           change=self.changeScene)

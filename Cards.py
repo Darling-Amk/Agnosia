@@ -68,7 +68,7 @@ class Attack(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
             return 1
@@ -111,7 +111,7 @@ class AttackUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
             return 1
@@ -145,7 +145,7 @@ class Shield(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            player.block += self.block
+            player.gainBlock(self.block,player)
             return 1
         return 0
 
@@ -177,7 +177,7 @@ class ShieldUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            player.block += self.block
+            player.gainBlock(self.block,player)
             return 1
         return 0
 
@@ -211,14 +211,13 @@ class UnexpectedMove(Card):
             if len(player.draw) == 0:
                 player.draw = player.deck.copy()
                 for j in player.hand:
-                    player.draw.remove(j)
+                    if player.draw.__contains__(j):
+                        player.draw.remove(j)
                 shuffle(player.draw)
             player.hand.append(player.draw.pop())
 
         player.hand.remove(self)
-        for a in player.hand:  # 1920 - длина области, ширина будет 200
-            a.rect = a.image.get_rect(center=(start, 941))
-            start += 150
+        player.showHand(0)
         return 1
 
 class UnexpectedMoveUpgraded(Card):
@@ -256,7 +255,7 @@ class UnexpectedMoveUpgraded(Card):
             dmg = int(dmg * 0.75)
         if player.energy >= self._price:
             player.energy -= self._price
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
         start = 800
@@ -264,17 +263,13 @@ class UnexpectedMoveUpgraded(Card):
             if len(player.draw) == 0:
                 player.draw = player.deck.copy()
                 for j in player.hand:
-                    try:
+                    if player.draw.__contains__(j):
                         player.draw.remove(j)
-                    except ValueError:
-                        pass
                 shuffle(player.draw)
             player.hand.append(player.draw.pop())
 
         player.hand.remove(self)
-        for a in player.hand:  # 1920 - длина области, ширина будет 200
-            a.rect = a.image.get_rect(center=(start, 941))
-            start += 150
+        player.showHand(0)
         return 1
 
 class Burning(Card):
@@ -304,7 +299,7 @@ class Burning(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            monster.makeEffect("fire", 3)
+            monster.makeEffect("fire", 3,player)
             return 1
         return 0
 
@@ -335,7 +330,7 @@ class BurningUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            monster.makeEffect("fire", 5)
+            monster.makeEffect("fire", 5,player)
 
             return 1
         return 0
@@ -377,8 +372,8 @@ class SharpBlade(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            tmp = monster.makeDamage(dmg)
-            cmp = player.makeDamage(2)
+            tmp = monster.makeDamage(dmg,player)
+            cmp = player.makeDamage(2,player)
             if cmp:
                 return 0
             if tmp:
@@ -423,8 +418,8 @@ class SharpBladeUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            tmp = monster.makeDamage(dmg)
-            cmp = player.makeDamage(2)
+            tmp = monster.makeDamage(dmg,player)
+            cmp = player.makeDamage(2,player)
             if cmp:
                 return 0
             if tmp:
@@ -469,7 +464,7 @@ class Shuriken(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
             return 1
@@ -512,7 +507,7 @@ class ShurikenUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
             return 1
@@ -544,7 +539,7 @@ class EnBurst(Card):
 
     def play(self, player, monster):
         player.hand.remove(self)
-        player.energy += self.energy
+        player.gainEnergy(self.energy)
         return 1
 
 
@@ -574,7 +569,7 @@ class EnBurstUpgraded(Card):
 
     def play(self, player, monster):
         player.hand.remove(self)
-        player.energy += self.energy
+        player.gainEnergy(self.energy)
         return 1
 
 
@@ -615,7 +610,7 @@ class CounterStrike(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
             return 1
@@ -645,7 +640,7 @@ class CounterStrikeUpgraded(Card):
         pass
 
     def play(self, player, monster):
-        player.block += 5
+        player.gainBlock(5,player)
         dmg = int(player.block/2)
         if player.effects["weakness"]>0: #weakness
             dmg = int(dmg*0.75)
@@ -658,7 +653,7 @@ class CounterStrikeUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
             return 1
@@ -691,10 +686,10 @@ class Infection(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            monster.makeEffect("fire", 2)
-            monster.makeEffect("disarm", 1)
-            monster.makeEffect("blind", 2)
-            monster.makeEffect("weakness", 2)
+            monster.makeEffect("fire", 2,player)
+            monster.makeEffect("disarm", 1,player)
+            monster.makeEffect("blind", 2,player)
+            monster.makeEffect("weakness", 2,player)
             return 1
         return 0
 
@@ -725,10 +720,10 @@ class InfectionUpgraded(Card):
         if player.energy >= self._price:
             player.energy -= self._price
             player.hand.remove(self)
-            monster.makeEffect("fire", 2)
-            monster.makeEffect("disarm", 1)
-            monster.makeEffect("blind", 2)
-            monster.makeEffect("weakness", 2)
+            monster.makeEffect("fire", 2,player)
+            monster.makeEffect("disarm", 1,player)
+            monster.makeEffect("blind", 2,player)
+            monster.makeEffect("weakness", 2,player)
             return 1
         return 0
 
@@ -768,7 +763,7 @@ class Plague(Card):
                 dmg += 5
             if monster.effects["blind"] > 0:  # blind
                 dmg += 5
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
             return 1
@@ -810,7 +805,7 @@ class PlagueUpgraded(Card):
                 dmg += 8
             if monster.effects["blind"] > 0:  # blind
                 dmg += 8
-            tmp = monster.makeDamage(dmg)
+            tmp = monster.makeDamage(dmg,player)
             if tmp:
                 return 2
             return 1
@@ -847,9 +842,7 @@ class BrainOverflow(Card):
             player.hand.append(i)
 
         player.hand.remove(self)
-        for a in player.hand:  # 1920 - длина области, ширина будет 200
-            a.rect = a.image.get_rect(center=(start, 941))
-            start += 150
+        player.showHand(0)
         return 1
 
 class BrainOverflowUpgraded(Card):
@@ -882,7 +875,5 @@ class BrainOverflowUpgraded(Card):
             player.hand.append(i)
 
         player.hand.remove(self)
-        for a in player.hand:  # 1920 - длина области, ширина будет 200
-            a.rect = a.image.get_rect(center=(start, 941))
-            start += 150
+        player.showHand(0)
         return 1
