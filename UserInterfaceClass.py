@@ -2,10 +2,10 @@ import sys
 sys.path.insert(1,'Scenes')
 
 import Cards
-from Scenes.Map import  MapScene
-from  Options import OptionsScene
-from  Menu import MainMenuScene
-from  Battle import BattleScene
+from Map import  MapScene
+from Options import OptionsScene
+from Menu import MainMenuScene
+from Battle import BattleScene
 from Camp import CampScene, CampUpgradeScene
 from Chest import ChestScene, RewardScene
 from Victory import VictoryScene
