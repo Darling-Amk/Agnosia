@@ -1,5 +1,8 @@
+import sys
+sys.path.append('Scenes')
+
 import Cards
-from Map import  MapScene
+from Scenes.Map import  MapScene
 from  Options import OptionsScene
 from  Menu import MainMenuScene
 from  Battle import BattleScene

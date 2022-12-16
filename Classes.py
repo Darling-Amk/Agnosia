@@ -98,6 +98,7 @@ class Player(Creature):
 
     def restart(self):
         self.artifacts = []
+        self.effects = {"weakness": 0, "blind": 0, "fire": 0, "disarm": 0, "power": 0}
         self.deck = []
         self.hand = []
         self.draw = []
