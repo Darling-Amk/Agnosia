@@ -40,10 +40,10 @@ class Creature(pygame.sprite.Sprite):
             pass
         elif self.block > damage:
             self.block-=damage
-            player.addToLog(f"{type(self).__name__} got {damage} dealt to it's shield")
+            player.addToLog(f"{type(self).__name__} got {damage} damage dealt to it's shield")
         elif self.block == 0:
             self.health-=damage
-            player.addToLog(f"{type(self).__name__} got {damage} dealt to it")
+            player.addToLog(f"{type(self).__name__} got {damage} damage dealt to it")
         else:
             damage-=self.block
             self.block = 0
