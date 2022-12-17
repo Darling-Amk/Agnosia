@@ -58,7 +58,8 @@ class Button:
                 pygame.draw.rect( self.screen,self.color,(x,y,self.width,self.height))
 
         if not f:
-            pygame.draw.rect(self.screen, (100, 100, 100), (x - 10, y - 10, self.width + 20, self.height + 20))
+            pass
+            #pygame.draw.rect(self.screen, (100, 100, 100), (x - 10, y - 10, self.width + 20, self.height + 20))
 
         draw_text(self.screen, text, x, y,self.font)
 
