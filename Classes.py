@@ -268,9 +268,10 @@ class Goblin(Monster):
         if self.effects["fire"]>0: # fire
             self.makeDamage(5,self.player)
         self.player.makeDamage(dmg, self.player)
-        a = random.randint(0, 5)
-        if a == 2:
+
+        if random.randint(0, 5) == 2:
             self.player.makeEffect("disarm", 1,self.player)
+
         self.heal(5,self.player)
         for eff in self.effects:
             if self.effects[eff]>0:

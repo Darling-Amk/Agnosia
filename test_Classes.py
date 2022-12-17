@@ -1,9 +1,13 @@
 import math
 import pytest
 import pygame
+import sys
+sys.path.insert(1,'Scenes')
 
 import Cards
-from Classes import Player,Goblin
+from Classes import Player, Goblin, Monster, Dragon
+from GraphTest import generateGraph
+from GraphTest import generateEvents
 
 screen = pygame.display.set_mode((1920,1080))
 # Тест 1 (Сдача руки) (позитивный) [unit]
@@ -42,8 +46,7 @@ def test_end_turn_gives_new_cards():
     assert a.__contains__(type(newCard).__name__)
 
 # Тест 2 (Связность графа) (позитивный) [unit] 
-from GraphTest import generateGraph
-from GraphTest import generateEvents
+
 was = dict()
 def dfs(v, g):
     was[v] = 1
@@ -60,7 +63,8 @@ def graph_test():
     g1 = generateGraph()
     assert(g1 == g) is False
     e = generateEvents(g, Player())    
-    lst = Monster()
+    lst = Monster(Player())
+    ok=0
     for i in e:
         if i != lst:
             ok = 1
@@ -96,13 +100,16 @@ def test_monster_damage_player():
     monster = Goblin(player)
     player.endTurn(monster)
     assert player.health < safe_health
+    
 # Тест 6 (Тест эффекта огня: смерть) (позитивный) [unit]
 def test_monster_death_after_fatal_player_damage():
     player = Player()
-    monster = Goblin(player)
+    monster = Dragon(player)
     monster.health = 1
-    monster.makeEffect("fire",2,player)
+    monster.makeEffect("fire",5,player)
     player.endTurn(monster)
+    monster.turn()
+
     assert monster.health <= 0
 
 # Тест 7 (Тест эффекта разоружения) (позитивный) [unit]
